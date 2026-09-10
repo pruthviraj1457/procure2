@@ -1,0 +1,113 @@
+// Procure — Prisma Schema (SQLite, zero-config for demo)
+// Production: swap datasource to PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Officer {
+  id                    String                  @id @default(cuid())
+  name                  String                  @default("Demo Officer")
+  department            String                  @default("Department of Consumer Affairs")
+  email                 String                  @unique @default("officer@gov.in")
+  createdAt             DateTime                @default(now())
+  requirements          ProcurementRequirement[]
+  conversations         Conversation[]
+  favoriteSuppliers     FavoriteSupplier[]
+}
+
+model ProcurementRequirement {
+  id               String        @id @default(cuid())
+  officerId        String
+  officer          Officer       @relation(fields: [officerId], references: [id])
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  rawInput         String
+  inputMode        String        @default("text") // text | upload | voice | scan
+  extractedJson    String        @default("{}") // JSON string of extracted fields
+  matchedStandardIds String      @default("[]") // JSON array of standard IDs
+  status           String        @default("draft") // draft | analyzing | analyzed | reported
+  conversations    Conversation[]
+  report           ProcurementReport?
+}
+
+model Supplier {
+  id               String    @id @default(cuid())
+  externalId       String    @unique // matches seed data supplier ID
+  name             String
+  businessType     String
+  location         String
+  about            String
+  productsJson     String    @default("[]")
+  standardsJson    String    @default("[]")
+  certificationsJson String  @default("[]")
+  trustRating      Float     @default(4.0)
+  createdAt        DateTime  @default(now())
+  conversations    Conversation[]
+  favoriteBy       FavoriteSupplier[]
+}
+
+model Conversation {
+  id            String    @id @default(cuid())
+  requirementId String
+  requirement   ProcurementRequirement @relation(fields: [requirementId], references: [id])
+  officerId     String
+  officer       Officer   @relation(fields: [officerId], references: [id])
+  supplierId    String
+  supplier      Supplier  @relation(fields: [supplierId], references: [id])
+  createdAt     DateTime  @default(now())
+  messages      Message[]
+  quote         Quote?
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  senderRole     String       // officer | supplier
+  text           String
+  attachmentUrl  String?
+  sentAt         DateTime     @default(now())
+}
+
+model Quote {
+  id             String       @id @default(cuid())
+  conversationId String       @unique
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  product        String
+  quantity       Int
+  unitPrice      Float
+  totalPrice     Float
+  deliveryDays   Int
+  warranty       String
+  documentsJson  String       @default("[]")
+  createdAt      DateTime     @default(now())
+}
+
+model ProcurementReport {
+  id            String                 @id @default(cuid())
+  requirementId String                 @unique
+  requirement   ProcurementRequirement @relation(fields: [requirementId], references: [id])
+  sectionsJson  String                 @default("{}")
+  decisionSupplierId String?
+  decisionNotes String?
+  exportedAt    DateTime?
+  createdAt     DateTime               @default(now())
+  updatedAt     DateTime               @updatedAt
+}
+
+model FavoriteSupplier {
+  id         String   @id @default(cuid())
+  officerId  String
+  officer    Officer  @relation(fields: [officerId], references: [id])
+  supplierId String
+  supplier   Supplier @relation(fields: [supplierId], references: [id])
+  createdAt  DateTime @default(now())
+
+  @@unique([officerId, supplierId])
+}

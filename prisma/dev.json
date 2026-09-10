@@ -1,0 +1,206 @@
+{
+  "officers": [
+    {
+      "id": "offknkealaiemts9n6hp",
+      "createdAt": "2026-09-08T06:05:48.829Z",
+      "updatedAt": "2026-09-08T06:05:48.830Z",
+      "extractedJson": "{}",
+      "matchedStandardIds": "[]",
+      "inputMode": "text",
+      "status": "draft",
+      "name": "Rajesh Kumar",
+      "department": "Department of Consumer Affairs",
+      "email": "rajesh.kumar@consumeraffairs.gov.in"
+    }
+  ],
+  "procurementRequirements": [
+    {
+      "id": "reqfzuf03vv4mts9n6ht",
+      "createdAt": "2026-09-08T06:05:48.833Z",
+      "updatedAt": "2026-09-08T06:05:48.833Z",
+      "extractedJson": "{}",
+      "matchedStandardIds": "[]",
+      "inputMode": "text",
+      "status": "draft",
+      "officerId": "offknkealaiemts9n6hp",
+      "rawInput": "Need 500 industrial safety helmets for construction workers"
+    },
+    {
+      "id": "req2iwhlqca9mts9tiov",
+      "createdAt": "2026-09-08T06:10:44.575Z",
+      "updatedAt": "2026-09-08T06:13:54.235Z",
+      "extractedJson": "{\"product\":\"Industrial Safety Helmet\",\"quantity\":500,\"useCase\":\"General industrial use\",\"purpose\":\"General industrial use\",\"environment\":\"Industrial site / field deployment\",\"intendedUse\":\"Industrial site / field deployment\",\"category\":\"Personal Protective Equipment\",\"technicalRequirements\":[{\"parameter\":\"Shell Material\",\"value\":\"Thermoplastic or FRP (non-conducting)\"},{\"parameter\":\"Crown Clearance\",\"value\":\"≥ 30 mm\"},{\"parameter\":\"Shock Absorption Peak Force\",\"value\":\"≤ 5.0 kN\"},{\"parameter\":\"Electrical Insulation\",\"value\":\"1200 V AC proof rating\"},{\"parameter\":\"Mass\",\"value\":\"≤ 400 g\"}],\"safetyRequirements\":[{\"requirement\":\"ISI Mark mandatory under Quality Control Order\"},{\"requirement\":\"Shock absorption and penetration resistance certified\"}],\"procurementRequirements\":[\"Mandatory ISI certification\",\"Class-1 OEM pre-qualification on GeM portal\"],\"keywords\":[\"safety helmet\",\"hard hat\",\"head protection\",\"industrial helmet\",\"PPE\",\"IS 2925\"],\"statedSpecs\":[\"Shell Material: Thermoplastic or FRP (non-conducting)\",\"Crown Clearance: ≥ 30 mm\",\"Shock Absorption Peak Force: ≤ 5.0 kN\",\"Electrical Insulation: 1200 V AC proof rating\",\"Mass: ≤ 400 g\"],\"messages\":[{\"role\":\"user\",\"text\":\"which certificate are neded\",\"sentAt\":\"2026-09-08T06:13:52.756Z\"},{\"role\":\"assistant\",\"text\":\"Thank you officer. I have updated the procurement analysis context with \\\"which certificate are neded\\\". Technical specifications and BIS compliance parameters have been refreshed.\",\"sentAt\":\"2026-09-08T06:13:53.814Z\"}]}",
+      "matchedStandardIds": "[\"IS-2925-1984\",\"IS-15683-2018\",\"IS-4984-2016\"]",
+      "inputMode": "text",
+      "status": "analyzed",
+      "officerId": "offknkealaiemts9n6hp",
+      "rawInput": "We need to procure 500 industrial safety helmets for workers at a manufacturing plant. The helmets should protect workers from falling objects and workplace hazards. They should provide shock absorption and penetration resistance, have an adjustable harness and chin strap, and be suitable for industrial use. The supplier should provide relevant BIS certification and test documentation. Identify the applicable Indian Standards and relevant testing requirements.\nClarification: which certificate are neded"
+    },
+    {
+      "id": "req49rz64p4smtsfh0jx",
+      "createdAt": "2026-09-08T08:48:58.893Z",
+      "updatedAt": "2026-09-08T08:55:17.731Z",
+      "extractedJson": "{\"product\":\"Industrial Safety Helmet\",\"quantity\":100,\"useCase\":\"Construction and civil work sites\",\"purpose\":\"Construction and civil work sites\",\"environment\":\"Industrial site / field deployment\",\"intendedUse\":\"Industrial site / field deployment\",\"category\":\"Personal Protective Equipment\",\"technicalRequirements\":[{\"parameter\":\"Shell Material\",\"value\":\"Thermoplastic or FRP (non-conducting)\"},{\"parameter\":\"Crown Clearance\",\"value\":\"≥ 30 mm\"},{\"parameter\":\"Shock Absorption Peak Force\",\"value\":\"≤ 5.0 kN\"},{\"parameter\":\"Electrical Insulation\",\"value\":\"1200 V AC proof rating\"},{\"parameter\":\"Mass\",\"value\":\"≤ 400 g\"}],\"safetyRequirements\":[{\"requirement\":\"ISI Mark mandatory under Quality Control Order\"},{\"requirement\":\"Shock absorption and penetration resistance certified\"}],\"procurementRequirements\":[\"Mandatory ISI certification\",\"Class-1 OEM pre-qualification on GeM portal\"],\"keywords\":[\"safety helmet\",\"hard hat\",\"head protection\",\"industrial helmet\",\"PPE\",\"IS 2925\"],\"statedSpecs\":[\"Shell Material: Thermoplastic or FRP (non-conducting)\",\"Crown Clearance: ≥ 30 mm\",\"Shock Absorption Peak Force: ≤ 5.0 kN\",\"Electrical Insulation: 1200 V AC proof rating\",\"Mass: ≤ 400 g\"],\"messages\":[{\"role\":\"user\",\"text\":\"find required certificate\",\"sentAt\":\"2026-09-08T08:55:16.840Z\"},{\"role\":\"assistant\",\"text\":\"Thank you officer. I have updated the procurement analysis context with \\\"find required certificate\\\". Technical specifications and BIS compliance parameters have been refreshed.\",\"sentAt\":\"2026-09-08T08:55:17.132Z\"}]}",
+      "matchedStandardIds": "[\"IS-2925-1984\",\"IS-15683-2018\",\"IS-4984-2016\"]",
+      "inputMode": "text",
+      "status": "analyzed",
+      "officerId": "offknkealaiemts9n6hp",
+      "rawInput": "I need to procure 100 industrial safety helmets for construction workers\nClarification: find required certificate"
+    },
+    {
+      "id": "reqnpx61g5h6mtsgqbq3",
+      "createdAt": "2026-09-08T09:24:12.891Z",
+      "updatedAt": "2026-09-08T09:25:05.700Z",
+      "extractedJson": "{\"product\":\"Industrial Safety Helmet\",\"quantity\":500,\"useCase\":\"Construction and civil work sites\",\"purpose\":\"Construction and civil work sites\",\"environment\":\"Industrial site / field deployment\",\"intendedUse\":\"Industrial site / field deployment\",\"category\":\"Personal Protective Equipment\",\"technicalRequirements\":[{\"parameter\":\"Shell Material\",\"value\":\"Thermoplastic or FRP (non-conducting)\"},{\"parameter\":\"Crown Clearance\",\"value\":\"≥ 30 mm\"},{\"parameter\":\"Shock Absorption Peak Force\",\"value\":\"≤ 5.0 kN\"},{\"parameter\":\"Electrical Insulation\",\"value\":\"1200 V AC proof rating\"},{\"parameter\":\"Mass\",\"value\":\"≤ 400 g\"}],\"safetyRequirements\":[{\"requirement\":\"ISI Mark mandatory under Quality Control Order\"},{\"requirement\":\"Shock absorption and penetration resistance certified\"}],\"procurementRequirements\":[\"Mandatory ISI certification\",\"Class-1 OEM pre-qualification on GeM portal\"],\"keywords\":[\"safety helmet\",\"hard hat\",\"head protection\",\"industrial helmet\",\"PPE\",\"IS 2925\"],\"statedSpecs\":[\"Shell Material: Thermoplastic or FRP (non-conducting)\",\"Crown Clearance: ≥ 30 mm\",\"Shock Absorption Peak Force: ≤ 5.0 kN\",\"Electrical Insulation: 1200 V AC proof rating\",\"Mass: ≤ 400 g\"],\"clarifyingQuestion\":{\"question\":\"Do these helmets need to be rated for electrical work (Class E — dielectric protection)?\",\"options\":[\"Yes, electrical rating required\",\"No, standard protection only\",\"Not sure — include both\"]},\"confidence\":0.9}",
+      "matchedStandardIds": "[\"IS-2925-1984\",\"IS-15683-2018\",\"IS-4984-2016\"]",
+      "inputMode": "text",
+      "status": "analyzed",
+      "officerId": "offknkealaiemts9n6hp",
+      "rawInput": "I need to procure 500 industrial safety helmets for construction workers"
+    },
+    {
+      "id": "reqc4fwlw2p4mtstcwnh",
+      "createdAt": "2026-09-08T15:17:41.837Z",
+      "updatedAt": "2026-09-08T15:17:43.712Z",
+      "extractedJson": "{\"product\":\"General procurement item\",\"quantity\":20260903,\"useCase\":\"General industrial use\",\"purpose\":\"General industrial use\",\"environment\":\"Industrial site / field deployment\",\"intendedUse\":\"Industrial site / field deployment\",\"category\":\"General Goods\",\"technicalRequirements\":[],\"safetyRequirements\":[],\"procurementRequirements\":[],\"keywords\":[\"[Extracted\"],\"statedSpecs\":[],\"confidence\":0.45}",
+      "matchedStandardIds": "[\"IS-2925-1984\"]",
+      "inputMode": "upload",
+      "status": "analyzed",
+      "officerId": "offknkealaiemts9n6hp",
+      "rawInput": "[Extracted from: IMG-20260903-WA0170.jpg.jpeg] Please analyze technical clauses and IS standards."
+    },
+    {
+      "id": "reqbav5gkoj0mtugjuk9",
+      "createdAt": "2026-09-09T18:54:43.065Z",
+      "updatedAt": "2026-09-09T18:55:13.616Z",
+      "extractedJson": "{\"product\":\"Industrial Safety Helmet\",\"quantity\":500,\"useCase\":\"General industrial use\",\"purpose\":\"General industrial use\",\"environment\":\"Industrial site / field deployment\",\"intendedUse\":\"Industrial site / field deployment\",\"category\":\"Personal Protective Equipment\",\"technicalRequirements\":[{\"parameter\":\"Shell Material\",\"value\":\"Thermoplastic or FRP (non-conducting)\"},{\"parameter\":\"Crown Clearance\",\"value\":\"≥ 30 mm\"},{\"parameter\":\"Shock Absorption Peak Force\",\"value\":\"≤ 5.0 kN\"},{\"parameter\":\"Electrical Insulation\",\"value\":\"1200 V AC proof rating\"},{\"parameter\":\"Mass\",\"value\":\"≤ 400 g\"}],\"safetyRequirements\":[{\"requirement\":\"ISI Mark mandatory under Quality Control Order\"},{\"requirement\":\"Shock absorption and penetration resistance certified\"}],\"procurementRequirements\":[\"Mandatory ISI certification\",\"Class-1 OEM pre-qualification on GeM portal\"],\"keywords\":[\"safety helmet\",\"hard hat\",\"head protection\",\"industrial helmet\",\"PPE\",\"IS 2925\"],\"statedSpecs\":[\"Shell Material: Thermoplastic or FRP (non-conducting)\",\"Crown Clearance: ≥ 30 mm\",\"Shock Absorption Peak Force: ≤ 5.0 kN\",\"Electrical Insulation: 1200 V AC proof rating\",\"Mass: ≤ 400 g\"],\"clarifyingQuestion\":{\"question\":\"Do these helmets need to be rated for electrical work (Class E — dielectric protection)?\",\"options\":[\"Yes, electrical rating required\",\"No, standard protection only\",\"Not sure — include both\"]},\"confidence\":0.9}",
+      "matchedStandardIds": "[\"IS-2925-1984\",\"IS-15683-2018\",\"IS-4984-2016\"]",
+      "inputMode": "text",
+      "status": "analyzed",
+      "officerId": "offknkealaiemts9n6hp",
+      "rawInput": "I need to procure 500 industrial safety helmets"
+    },
+    {
+      "id": "req892rgcdrjmtuhw2gp",
+      "createdAt": "2026-09-09T19:32:12.793Z",
+      "updatedAt": "2026-09-09T19:32:20.179Z",
+      "extractedJson": "{\"product\":\"Industrial Safety Helmet\",\"quantity\":500,\"useCase\":\"Construction and civil work sites\",\"purpose\":\"Construction and civil work sites\",\"environment\":\"Industrial site / field deployment\",\"intendedUse\":\"Industrial site / field deployment\",\"category\":\"Personal Protective Equipment\",\"technicalRequirements\":[{\"parameter\":\"Shell Material\",\"value\":\"Thermoplastic or FRP (non-conducting)\"},{\"parameter\":\"Crown Clearance\",\"value\":\"≥ 30 mm\"},{\"parameter\":\"Shock Absorption Peak Force\",\"value\":\"≤ 5.0 kN\"},{\"parameter\":\"Electrical Insulation\",\"value\":\"1200 V AC proof rating\"},{\"parameter\":\"Mass\",\"value\":\"≤ 400 g\"}],\"safetyRequirements\":[{\"requirement\":\"ISI Mark mandatory under Quality Control Order\"},{\"requirement\":\"Shock absorption and penetration resistance certified\"}],\"procurementRequirements\":[\"Mandatory ISI certification\",\"Class-1 OEM pre-qualification on GeM portal\"],\"keywords\":[\"safety helmet\",\"hard hat\",\"head protection\",\"industrial helmet\",\"PPE\",\"IS 2925\"],\"statedSpecs\":[\"Shell Material: Thermoplastic or FRP (non-conducting)\",\"Crown Clearance: ≥ 30 mm\",\"Shock Absorption Peak Force: ≤ 5.0 kN\",\"Electrical Insulation: 1200 V AC proof rating\",\"Mass: ≤ 400 g\"],\"clarifyingQuestion\":{\"question\":\"Do these helmets need to be rated for electrical work (Class E — dielectric protection)?\",\"options\":[\"Yes, electrical rating required\",\"No, standard protection only\",\"Not sure — include both\"]},\"confidence\":0.9}",
+      "matchedStandardIds": "[\"IS-2925-1984\",\"IS-15683-2018\",\"IS-4984-2016\"]",
+      "inputMode": "text",
+      "status": "analyzed",
+      "officerId": "offknkealaiemts9n6hp",
+      "rawInput": "I need to procure 500 industrial safety helmets for construction workers conforming to IS 2925."
+    },
+    {
+      "id": "reqn38ndno6cmtv3yfys",
+      "createdAt": "2026-09-10T05:49:55.156Z",
+      "updatedAt": "2026-09-10T05:49:58.094Z",
+      "extractedJson": "{\"product\":\"Industrial Safety Helmet\",\"quantity\":500,\"useCase\":\"General industrial use\",\"purpose\":\"General industrial use\",\"environment\":\"Industrial site / field deployment\",\"intendedUse\":\"Industrial site / field deployment\",\"category\":\"Personal Protective Equipment\",\"technicalRequirements\":[{\"parameter\":\"Shell Material\",\"value\":\"Thermoplastic or FRP (non-conducting)\"},{\"parameter\":\"Crown Clearance\",\"value\":\"≥ 30 mm\"},{\"parameter\":\"Shock Absorption Peak Force\",\"value\":\"≤ 5.0 kN\"},{\"parameter\":\"Electrical Insulation\",\"value\":\"1200 V AC proof rating\"},{\"parameter\":\"Mass\",\"value\":\"≤ 400 g\"}],\"safetyRequirements\":[{\"requirement\":\"ISI Mark mandatory under Quality Control Order\"},{\"requirement\":\"Shock absorption and penetration resistance certified\"}],\"procurementRequirements\":[\"Mandatory ISI certification\",\"Class-1 OEM pre-qualification on GeM portal\"],\"keywords\":[\"safety helmet\",\"hard hat\",\"head protection\",\"industrial helmet\",\"PPE\",\"IS 2925\"],\"statedSpecs\":[\"Shell Material: Thermoplastic or FRP (non-conducting)\",\"Crown Clearance: ≥ 30 mm\",\"Shock Absorption Peak Force: ≤ 5.0 kN\",\"Electrical Insulation: 1200 V AC proof rating\",\"Mass: ≤ 400 g\"],\"clarifyingQuestion\":{\"question\":\"Do these helmets need to be rated for electrical work (Class E — dielectric protection)?\",\"options\":[\"Yes, electrical rating required\",\"No, standard protection only\",\"Not sure — include both\"]},\"confidence\":0.9}",
+      "matchedStandardIds": "[\"IS-2925-1984\",\"IS-15683-2018\",\"IS-4984-2016\"]",
+      "inputMode": "text",
+      "status": "analyzed",
+      "officerId": "offknkealaiemts9n6hp",
+      "rawInput": "I need to procure 500 industrial safety helmets"
+    },
+    {
+      "id": "reqz79g1v49mmtv427id",
+      "createdAt": "2026-09-10T05:52:50.821Z",
+      "updatedAt": "2026-09-10T05:53:00.422Z",
+      "extractedJson": "{\"product\":\"Industrial Safety Helmet\",\"quantity\":500,\"useCase\":\"Construction and civil work sites\",\"purpose\":\"Construction and civil work sites\",\"environment\":\"Industrial site / field deployment\",\"intendedUse\":\"Industrial site / field deployment\",\"category\":\"Personal Protective Equipment\",\"technicalRequirements\":[{\"parameter\":\"Shell Material\",\"value\":\"Thermoplastic or FRP (non-conducting)\"},{\"parameter\":\"Crown Clearance\",\"value\":\"≥ 30 mm\"},{\"parameter\":\"Shock Absorption Peak Force\",\"value\":\"≤ 5.0 kN\"},{\"parameter\":\"Electrical Insulation\",\"value\":\"1200 V AC proof rating\"},{\"parameter\":\"Mass\",\"value\":\"≤ 400 g\"}],\"safetyRequirements\":[{\"requirement\":\"ISI Mark mandatory under Quality Control Order\"},{\"requirement\":\"Shock absorption and penetration resistance certified\"}],\"procurementRequirements\":[\"Mandatory ISI certification\",\"Class-1 OEM pre-qualification on GeM portal\"],\"keywords\":[\"safety helmet\",\"hard hat\",\"head protection\",\"industrial helmet\",\"PPE\",\"IS 2925\"],\"statedSpecs\":[\"Shell Material: Thermoplastic or FRP (non-conducting)\",\"Crown Clearance: ≥ 30 mm\",\"Shock Absorption Peak Force: ≤ 5.0 kN\",\"Electrical Insulation: 1200 V AC proof rating\",\"Mass: ≤ 400 g\"],\"clarifyingQuestion\":{\"question\":\"Do these helmets need to be rated for electrical work (Class E — dielectric protection)?\",\"options\":[\"Yes, electrical rating required\",\"No, standard protection only\",\"Not sure — include both\"]},\"confidence\":0.9}",
+      "matchedStandardIds": "[\"IS-2925-1984\",\"IS-15683-2018\",\"IS-4984-2016\"]",
+      "inputMode": "text",
+      "status": "analyzed",
+      "officerId": "offknkealaiemts9n6hp",
+      "rawInput": "I need to procure 500 industrial safety helmets for construction workers conforming"
+    },
+    {
+      "id": "reqy3vft9ddfmtv558bc",
+      "createdAt": "2026-09-10T06:23:11.448Z",
+      "updatedAt": "2026-09-10T06:23:13.598Z",
+      "extractedJson": "{\"product\":\"Industrial Safety Helmet\",\"quantity\":500,\"useCase\":\"General industrial use\",\"purpose\":\"General industrial use\",\"environment\":\"Industrial site / field deployment\",\"intendedUse\":\"Industrial site / field deployment\",\"category\":\"Personal Protective Equipment\",\"technicalRequirements\":[{\"parameter\":\"Shell Material\",\"value\":\"Thermoplastic or FRP (non-conducting)\"},{\"parameter\":\"Crown Clearance\",\"value\":\"≥ 30 mm\"},{\"parameter\":\"Shock Absorption Peak Force\",\"value\":\"≤ 5.0 kN\"},{\"parameter\":\"Electrical Insulation\",\"value\":\"1200 V AC proof rating\"},{\"parameter\":\"Mass\",\"value\":\"≤ 400 g\"}],\"safetyRequirements\":[{\"requirement\":\"ISI Mark mandatory under Quality Control Order\"},{\"requirement\":\"Shock absorption and penetration resistance certified\"}],\"procurementRequirements\":[\"Mandatory ISI certification\",\"Class-1 OEM pre-qualification on GeM portal\"],\"keywords\":[\"safety helmet\",\"hard hat\",\"head protection\",\"industrial helmet\",\"PPE\",\"IS 2925\"],\"statedSpecs\":[\"Shell Material: Thermoplastic or FRP (non-conducting)\",\"Crown Clearance: ≥ 30 mm\",\"Shock Absorption Peak Force: ≤ 5.0 kN\",\"Electrical Insulation: 1200 V AC proof rating\",\"Mass: ≤ 400 g\"],\"clarifyingQuestion\":{\"question\":\"Do these helmets need to be rated for electrical work (Class E — dielectric protection)?\",\"options\":[\"Yes, electrical rating required\",\"No, standard protection only\",\"Not sure — include both\"]},\"confidence\":0.9}",
+      "matchedStandardIds": "[\"IS-2925-1984\",\"IS-15683-2018\",\"IS-4984-2016\"]",
+      "inputMode": "text",
+      "status": "analyzed",
+      "officerId": "offknkealaiemts9n6hp",
+      "rawInput": "I need to procure 500 industrial safety helmets"
+    },
+    {
+      "id": "reqy8g6xx0p0mtv9esw5",
+      "createdAt": "2026-09-10T08:22:36.485Z",
+      "updatedAt": "2026-09-10T08:22:40.824Z",
+      "extractedJson": "{\"product\":\"General procurement item\",\"useCase\":\"Electrical sub-station and utility work\",\"purpose\":\"Electrical sub-station and utility work\",\"environment\":\"Indoor facility\",\"intendedUse\":\"Indoor facility\",\"category\":\"General Goods\",\"technicalRequirements\":[],\"safetyRequirements\":[],\"procurementRequirements\":[],\"keywords\":[\"Electrical\"],\"statedSpecs\":[],\"confidence\":0.45}",
+      "matchedStandardIds": "[\"IS-2925-1984\"]",
+      "inputMode": "text",
+      "status": "analyzed",
+      "officerId": "offknkealaiemts9n6hp",
+      "rawInput": "Electrical switch board for building"
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "sup3g3frcztgmtsfmozw",
+      "createdAt": "2026-09-08T08:53:23.852Z",
+      "updatedAt": "2026-09-10T06:25:41.610Z",
+      "externalId": "SUP-001",
+      "name": "Bharat Safety Industries Pvt. Ltd.",
+      "businessType": "Manufacturer",
+      "location": "Kanpur, Uttar Pradesh",
+      "about": "A leading ISI-certified manufacturer of personal protective equipment including industrial safety helmets, serving government and industrial clients since 1998. All products are BIS licensed under IS 2925.",
+      "trustRating": 4.7
+    }
+  ],
+  "conversations": [
+    {
+      "id": "convkzr8fgh0xmtsfmp06",
+      "createdAt": "2026-09-08T08:53:23.862Z",
+      "updatedAt": "2026-09-08T08:53:23.862Z",
+      "extractedJson": "{}",
+      "matchedStandardIds": "[]",
+      "inputMode": "text",
+      "status": "draft",
+      "requirementId": "req49rz64p4smtsfh0jx",
+      "officerId": "offknkealaiemts9n6hp",
+      "supplierId": "sup3g3frcztgmtsfmozw",
+      "messages": {
+        "create": {
+          "senderRole": "officer",
+          "text": "Hello, I'm interested in sourcing products from your company for a government tender. Could you please provide more details about your offerings?"
+        }
+      }
+    },
+    {
+      "id": "convq6fxxant0mtv43pev",
+      "createdAt": "2026-09-10T05:54:00.679Z",
+      "updatedAt": "2026-09-10T05:54:00.679Z",
+      "extractedJson": "{}",
+      "matchedStandardIds": "[]",
+      "inputMode": "text",
+      "status": "draft",
+      "requirementId": "reqz79g1v49mmtv427id",
+      "officerId": "offknkealaiemts9n6hp",
+      "supplierId": "sup3g3frcztgmtsfmozw",
+      "messages": {
+        "create": {
+          "senderRole": "officer",
+          "text": "Hello, I'm interested in sourcing products from your company for a government tender. Could you please provide more details about your offerings?"
+        }
+      }
+    }
+  ],
+  "messages": [],
+  "quotes": [],
+  "procurementReports": [],
+  "favoriteSuppliers": [
+    {
+      "id": "favtz9jh7buimtv58g6s",
+      "createdAt": "2026-09-10T06:25:41.620Z",
+      "updatedAt": "2026-09-10T06:25:41.620Z",
+      "extractedJson": "{}",
+      "matchedStandardIds": "[]",
+      "inputMode": "text",
+      "status": "draft",
+      "officerId": "offknkealaiemts9n6hp",
+      "supplierId": "sup3g3frcztgmtsfmozw"
+    }
+  ]
+}
