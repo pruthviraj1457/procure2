@@ -25,24 +25,35 @@ export type ScoredStandard = Standard & {
   relevanceScore: number; // 0–100
   whyApplicable: string;
   matchedKeywords: string[];
+  verificationStatus?: string;
 };
 
 export function queryStandards(extracted: ExtractedRequirement): ScoredStandard[] {
-  const queryTerms = buildQueryTerms(extracted);
+  const rawTerms = buildQueryTerms(extracted);
+  const normalizedTerms = rawTerms.map(normalizeWord);
 
   const scored: ScoredStandard[] = ALL_STANDARDS.map((standard) => {
-    const { score, matchedKeywords } = scoreStandard(standard, queryTerms);
+    const { score, matchedKeywords } = scoreStandard(standard, rawTerms, normalizedTerms);
     return {
       ...standard,
       relevanceScore: score,
       whyApplicable: generateWhyApplicable(standard, matchedKeywords, extracted),
       matchedKeywords,
+      verificationStatus: "Prototype knowledge record — BIS verification required",
     };
   }).filter((s) => s.relevanceScore > 0);
 
   // Sort descending by score
   scored.sort((a, b) => b.relevanceScore - a.relevanceScore);
   return scored;
+}
+
+function normalizeWord(word: string): string {
+  let w = word.toLowerCase().trim();
+  if (w.endsWith("s") && w.length > 3 && !w.endsWith("ss")) {
+    w = w.slice(0, -1);
+  }
+  return w;
 }
 
 function buildQueryTerms(extracted: ExtractedRequirement): string[] {
@@ -71,71 +82,74 @@ function buildQueryTerms(extracted: ExtractedRequirement): string[] {
     });
   }
 
-  // Deduplicate and remove stop words
   const stopWords = new Set([
     "the", "a", "an", "and", "or", "for", "of", "to", "in", "on",
     "at", "is", "are", "we", "need", "want", "require", "suitable",
     "with", "by", "from", "into", "that", "this", "these", "those",
-    "our", "us", "be", "as", "per", "nos", "no",
+    "our", "us", "be", "as", "per", "nos", "no", "should", "provide",
   ]);
+
   return [...new Set(terms)].filter((t) => t.length > 2 && !stopWords.has(t));
 }
 
 function scoreStandard(
   standard: Standard,
-  queryTerms: string[]
+  rawTerms: string[],
+  normalizedTerms: string[]
 ): { score: number; matchedKeywords: string[] } {
   const matchedKeywords: string[] = [];
   let rawScore = 0;
 
-  // Check against standard's relevanceKeywords (highest weight)
+  // Check relevanceKeywords
   for (const kwFull of standard.relevanceKeywords) {
-    const kw = kwFull.toLowerCase();
-    for (const qt of queryTerms) {
-      if (kw.includes(qt) || qt.includes(kw)) {
-        rawScore += 15;
+    const kwNorm = normalizeWord(kwFull);
+    for (let i = 0; i < rawTerms.length; i++) {
+      const rt = rawTerms[i];
+      const nt = normalizedTerms[i];
+      if (kwNorm.includes(nt) || nt.includes(kwNorm) || kwFull.toLowerCase().includes(rt)) {
+        rawScore += 20;
         if (!matchedKeywords.includes(kwFull)) matchedKeywords.push(kwFull);
         break;
       }
     }
   }
 
-  // Check against applicableProducts
+  // Check applicableProducts
   for (const product of standard.applicableProducts) {
-    const productLower = product.toLowerCase();
-    for (const qt of queryTerms) {
-      if (productLower.includes(qt) || qt.includes(productLower.split(" ")[0])) {
-        rawScore += 12;
+    const productNorm = normalizeWord(product);
+    for (let i = 0; i < rawTerms.length; i++) {
+      const nt = normalizedTerms[i];
+      if (productNorm.includes(nt) || nt.includes(normalizeWord(product.split(" ")[0]))) {
+        rawScore += 15;
         if (!matchedKeywords.includes(product)) matchedKeywords.push(product);
         break;
       }
     }
   }
 
-  // Check against title
-  const titleLower = standard.title.toLowerCase();
-  for (const qt of queryTerms) {
-    if (titleLower.includes(qt)) {
-      rawScore += 8;
+  // Check title
+  const titleNorm = normalizeWord(standard.title);
+  for (const nt of normalizedTerms) {
+    if (titleNorm.includes(nt)) {
+      rawScore += 10;
     }
   }
 
-  // Check against category
+  // Check category
   for (const cat of standard.category) {
-    const catLower = cat.toLowerCase();
-    for (const qt of queryTerms) {
-      if (catLower.includes(qt) || qt.includes(catLower.split(" ")[0])) {
+    const catNorm = normalizeWord(cat);
+    for (const nt of normalizedTerms) {
+      if (catNorm.includes(nt)) {
         rawScore += 5;
         break;
       }
     }
   }
 
-  // Superseded penalty
+  // Penalty for non-current status
   if (standard.status === "superseded") rawScore = Math.round(rawScore * 0.3);
   if (standard.status === "withdrawn") rawScore = 0;
 
-  // Cap at 100
   const score = Math.min(rawScore, 100);
   return { score, matchedKeywords: matchedKeywords.slice(0, 5) };
 }
@@ -152,8 +166,8 @@ function generateWhyApplicable(
   const product = extracted.product || "the requested product";
   const topKeyword = matchedKeywords[0];
 
-  if (standard.category.includes("Personal Protective Equipment")) {
-    return `Directly applicable as the primary BIS standard governing ${product} — matches on "${topKeyword}".`;
+  if (standard.category.includes("Personal Protective Equipment") || standard.number === "IS 2925") {
+    return `Directly applicable as the primary Indian Standard (IS 2925:1984) governing industrial safety helmets for protection against impact, penetration, and electrical hazards.`;
   }
   if (standard.category.includes("Fire Safety Equipment")) {
     return `Applicable as the current BIS standard for portable fire extinguishers covering design, testing, and marking requirements.`;

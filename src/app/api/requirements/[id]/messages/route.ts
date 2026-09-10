@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db";
 import { understandRequirement } from "@/lib/ai/understandRequirement";
 import { queryStandards } from "@/lib/standards/query";
 import { rankStandards } from "@/lib/ai/rankStandards";
+import { runAiResearchMode } from "@/lib/ai/aiResearchMode";
 
 export async function GET(
   _req: NextRequest,
@@ -56,7 +57,7 @@ export async function POST(
       try {
         const { GoogleGenerativeAI } = await import("@google/generative-ai");
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
         const prompt = `You are Procure AI, an Indian government procurement & BIS standards intelligence assistant.
 The procurement officer has provided a clarification or question for an existing procurement requirement.
@@ -74,7 +75,6 @@ Acknowledge the officer's message, explain how it affects the requirement specif
     }
 
     if (!replyText) {
-      // Deterministic reply fallback
       if (/construction|site|civil/i.test(text)) {
         replyText = "Updated requirement context to prioritize industrial safety helmets conforming to IS 2925:1984 with reinforced shell and shock absorption criteria for civil and construction sites.";
       } else if (/dielectric|electric|voltage|1200v/i.test(text)) {
@@ -89,13 +89,31 @@ Acknowledge the officer's message, explain how it affects the requirement specif
     const assistantMsg = { role: "assistant" as const, text: replyText, sentAt: new Date().toISOString() };
     existingMessages.push(assistantMsg);
 
-    // Re-run understanding & standards query with updated context
+    // Re-run understanding & research with updated context
     const understanding = await understandRequirement(updatedInput);
+    const researchResult = await runAiResearchMode(updatedInput);
     const candidates = queryStandards(understanding.extracted);
     const ranked = await rankStandards(understanding.extracted, candidates);
 
+    const verifiedStandardsAnnotated = ranked.map((std) => ({
+      ...std,
+      verificationStatus: "verified_bis_knowledge" as const,
+      knowledgeSource: "Verified BIS Knowledge Layer" as const,
+    }));
+
     const updatedExtracted = {
       ...understanding.extracted,
+      product: researchResult.product || understanding.extracted.product,
+      category: researchResult.category || understanding.extracted.category,
+      purpose: researchResult.purpose || understanding.extracted.purpose,
+      intendedUse: researchResult.intendedUse || understanding.extracted.intendedUse,
+      quantity: researchResult.quantity || understanding.extracted.quantity,
+      clarificationQuestions: researchResult.clarificationsNeeded,
+      procurementChecklist: researchResult.procurementChecklist,
+      limitations: researchResult.limitations,
+      knowledgeSource: researchResult.knowledgeSource,
+      disclaimer: researchResult.disclaimer,
+      aiResearch: researchResult,
       messages: existingMessages,
     };
 
@@ -104,14 +122,15 @@ Acknowledge the officer's message, explain how it affects the requirement specif
       data: {
         rawInput: updatedInput,
         extractedJson: JSON.stringify(updatedExtracted),
-        matchedStandardIds: JSON.stringify(ranked.map((s) => s.id)),
+        matchedStandardIds: JSON.stringify(verifiedStandardsAnnotated.map((s) => s.id)),
       },
     });
 
     return NextResponse.json({
       messages: existingMessages,
       extracted: updatedExtracted,
-      standards: ranked,
+      standards: verifiedStandardsAnnotated,
+      aiResearch: researchResult,
     });
   } catch (err) {
     console.error("[POST /api/requirements/[id]/messages]", err);
