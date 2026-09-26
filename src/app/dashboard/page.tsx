@@ -3,6 +3,26 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import DotField from "@/components/DotField";
+import {
+  Paperclip,
+  Microphone,
+  Brain,
+  Certificate,
+  FileText,
+  Buildings,
+  SealCheck,
+  ShieldCheck,
+  Scales,
+  HardHat,
+  Scroll,
+  Lightning,
+  ArrowRight,
+  CheckCircle,
+  WarningCircle,
+  Table,
+  ChatCircleDots,
+  Stack,
+} from "@phosphor-icons/react";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -97,26 +117,26 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col font-sans selection:bg-blue-100 selection:text-blue-900 bg-[#f8fafc] relative">
-      {/* DotField — fixed full-viewport background, z-0, below sticky header (z-50) */}
+    <div className="min-h-screen flex flex-col font-sans selection:bg-purple-100 selection:text-purple-900 bg-[#faf9fc] relative">
+      {/* DotField — fixed full-viewport background, z-0, strictly behind page content */}
       <div
-        className="fixed inset-0 pointer-events-none"
+        className="fixed inset-0 pointer-events-none z-0"
         style={{ zIndex: 0 }}
       >
         <DotField
-          dotRadius={2.5}
-          dotSpacing={18}
+          dotRadius={2.2}
+          dotSpacing={9}
           cursorRadius={340}
           bulgeOnly={true}
           bulgeStrength={50}
           glowRadius={180}
-          gradientFrom="rgba(15, 98, 254, 0.30)"
-          gradientTo="rgba(15, 98, 254, 0.14)"
-          glowColor="rgba(15, 98, 254, 0.20)"
+          gradientFrom="rgba(109, 40, 217, 0.52)"
+          gradientTo="rgba(91, 33, 182, 0.40)"
+          glowColor="rgba(124, 58, 237, 0.12)"
         />
       </div>
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-[1440px] w-full mx-auto px-6 pt-24 md:pt-28 pb-12">
+      {/* Main Content Area — explicitly elevated above background dots with z-10 */}
+      <main className="relative z-10 flex-1 max-w-[1440px] w-full mx-auto px-6 pt-24 md:pt-28 pb-12">
         {/* Hero AI Procurement Prompt Section */}
         <section className="max-w-4xl mx-auto text-center mb-12">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-950 mb-2 font-display">
@@ -127,7 +147,7 @@ export default function DashboardPage() {
           </p>
 
           {/* Primary Procurement Input Card */}
-          <div className="bg-white border border-slate-300 rounded-2xl p-4 shadow-xs hover:border-blue-400 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-100 transition-all text-left">
+          <div className="bg-white border border-slate-300 rounded-2xl p-4 shadow-xs hover:border-purple-300 focus-within:border-purple-600 focus-within:ring-4 focus-within:ring-purple-100 transition-all text-left">
             <div className="flex items-start gap-3">
               <input
                 ref={fileInputRef}
@@ -141,11 +161,9 @@ export default function DashboardPage() {
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 title="Attach Tender PDF or Technical Specification"
-                className="mt-1 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center shrink-0 border border-slate-200 transition-colors cursor-pointer"
+                className="mt-1 w-9 h-9 rounded-full bg-purple-50/80 hover:bg-purple-100 text-purple-700 flex items-center justify-center shrink-0 border border-purple-200/60 transition-colors cursor-pointer"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 4v16m8-8H4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-                </svg>
+                <Paperclip weight="duotone" className="w-5 h-5" />
               </button>
               <div className="flex-1">
                 <textarea
@@ -157,8 +175,9 @@ export default function DashboardPage() {
                   className="w-full resize-none border-0 p-0 text-base text-slate-800 placeholder:text-slate-400 focus:ring-0 focus:outline-none font-sans"
                 />
                 {uploadedFile && (
-                  <div className="mt-1 text-xs text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded inline-flex items-center gap-1 font-mono">
-                    📎 {uploadedFile.name}
+                  <div className="mt-1 text-xs text-purple-700 bg-purple-50 border border-purple-200 px-2 py-0.5 rounded inline-flex items-center gap-1 font-mono">
+                    <Paperclip weight="bold" className="w-3.5 h-3.5" />
+                    {uploadedFile.name}
                     <button
                       type="button"
                       onClick={() => setUploadedFile(null)}
@@ -176,17 +195,10 @@ export default function DashboardPage() {
                 className={`p-2 rounded-full transition-colors shrink-0 cursor-pointer ${
                   isRecording
                     ? "bg-red-50 text-red-600 border border-red-200 animate-pulse"
-                    : "text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+                    : "text-slate-400 hover:text-purple-700 hover:bg-purple-50"
                 }`}
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                  ></path>
-                </svg>
+                <Microphone weight="duotone" className="w-5 h-5" />
               </button>
             </div>
 
@@ -199,12 +211,10 @@ export default function DashboardPage() {
                 type="button"
                 onClick={() => handleSubmit()}
                 disabled={isSubmitting || !input.trim()}
-                className="inline-flex items-center gap-2 bg-slate-900 hover:bg-[#0f62fe] active:bg-[#0043ce] text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors shadow-xs ml-auto disabled:opacity-50 cursor-pointer"
+                className="inline-flex items-center gap-2 bg-[#6d28d9] hover:bg-[#5b21b6] active:bg-[#4c1d95] text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors shadow-xs ml-auto disabled:opacity-50 cursor-pointer"
               >
-                <span>{isSubmitting ? "Analyzing..." : "Analyze with AI"}</span>
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-                </svg>
+                <span>{isSubmitting ? "Analyzing..." : "Analyze Specification"}</span>
+                <ArrowRight weight="bold" className="w-4 h-4 text-white" />
               </button>
             </div>
             {errorMessage && (
@@ -218,22 +228,22 @@ export default function DashboardPage() {
           {/* Quick Action Chips */}
           <div className="flex flex-wrap items-center justify-center gap-2.5 mt-5">
             {[
-              { label: "Find Standards", iconColor: "text-blue-600", path: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" },
-              { label: "Analyze Tender", iconColor: "text-purple-600", path: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" },
-              { label: "Find Supplier", iconColor: "text-emerald-600", path: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" },
-              { label: "Check Certification", iconColor: "text-indigo-600", path: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" },
-              { label: "Check Compliance", iconColor: "text-teal-600", path: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" },
-              { label: "Compare Suppliers", iconColor: "text-amber-600", path: "M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" },
+              { label: "Find Standards", icon: <Certificate weight="fill" className="w-3.5 h-3.5 text-white" />, bg: "bg-[#7209b7]" },
+              { label: "Analyze Tender", icon: <FileText weight="fill" className="w-3.5 h-3.5 text-white" />, bg: "bg-[#00a8e8]" },
+              { label: "Find Supplier", icon: <Buildings weight="fill" className="w-3.5 h-3.5 text-white" />, bg: "bg-[#0d9488]" },
+              { label: "Check Certification", icon: <SealCheck weight="fill" className="w-3.5 h-3.5 text-white" />, bg: "bg-[#2a9d8f]" },
+              { label: "Check Compliance", icon: <ShieldCheck weight="fill" className="w-3.5 h-3.5 text-white" />, bg: "bg-[#6366f1]" },
+              { label: "Compare Suppliers", icon: <Scales weight="fill" className="w-3.5 h-3.5 text-white" />, bg: "bg-[#f4a261]" },
             ].map((chip) => (
               <button
                 key={chip.label}
                 type="button"
                 onClick={() => handleChipClick(chip.label)}
-                className="chip-hover inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-slate-300 bg-white text-xs font-medium text-slate-700 shadow-2xs cursor-pointer"
+                className="chip-hover inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:border-slate-300 hover:bg-slate-50 shadow-2xs transition-colors cursor-pointer"
               >
-                <svg className={`w-3.5 h-3.5 ${chip.iconColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path d={chip.path} strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-                </svg>
+                <span className={`w-6 h-6 rounded-full ${chip.bg} flex items-center justify-center shrink-0 shadow-xs`}>
+                  {chip.icon}
+                </span>
                 {chip.label}
               </button>
             ))}
@@ -253,32 +263,23 @@ export default function DashboardPage() {
                   Quickly continue procurement drafts, reports and compliance checks
                 </p>
               </div>
-              <a href="#" className="text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+              <a href="#" className="text-xs font-semibold text-purple-700 hover:text-purple-900 flex items-center gap-1">
                 View All
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-                </svg>
+                <ArrowRight weight="bold" className="w-3.5 h-3.5" />
               </a>
             </div>
 
             {/* Activity Card 1: Industrial Safety Helmet */}
-            <article className="bg-white rounded-xl border border-slate-200 p-5 hover:border-slate-300 hover:shadow-xs transition-all">
+            <article className="bg-white rounded-xl border border-slate-200 p-5 hover:border-purple-200 hover:shadow-xs transition-all">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.8"
-                      ></path>
-                    </svg>
+                  <div className="w-10 h-10 rounded-full bg-[#f4a261] flex items-center justify-center shrink-0 shadow-xs">
+                    <HardHat weight="fill" className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className="text-sm font-bold text-slate-900">Industrial Safety Helmet</h3>
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-blue-50 text-blue-700 border border-blue-200 font-mono">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-purple-50 text-purple-700 border border-purple-200/60 font-mono">
                         IS 2925:1984
                       </span>
                     </div>
@@ -291,8 +292,10 @@ export default function DashboardPage() {
                   </div>
                 </div>
                 <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
+                    <span className="w-4 h-4 rounded-full bg-[#2a9d8f] flex items-center justify-center shrink-0">
+                      <CheckCircle weight="fill" className="w-3 h-3 text-white" />
+                    </span>
                     Analysis Completed
                   </span>
                   <button
@@ -301,7 +304,7 @@ export default function DashboardPage() {
                       setInput("500 industrial safety helmets for construction workers, outdoor sites");
                       handleSubmit();
                     }}
-                    className="px-3.5 py-1.5 bg-slate-900 hover:bg-[#0f62fe] text-white text-xs font-medium rounded-lg transition-colors shadow-2xs cursor-pointer"
+                    className="px-3.5 py-1.5 bg-slate-900 hover:bg-[#6d28d9] text-white text-xs font-medium rounded-lg transition-colors shadow-2xs cursor-pointer"
                   >
                     Continue Analysis
                   </button>
@@ -310,18 +313,11 @@ export default function DashboardPage() {
             </article>
 
             {/* Activity Card 2: Office Furniture Tender */}
-            <article className="bg-white rounded-xl border border-slate-200 p-5 hover:border-slate-300 hover:shadow-xs transition-all">
+            <article className="bg-white rounded-xl border border-slate-200 p-5 hover:border-purple-200 hover:shadow-xs transition-all">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.8"
-                      ></path>
-                    </svg>
+                  <div className="w-10 h-10 rounded-full bg-[#0077b6] flex items-center justify-center shrink-0 shadow-xs">
+                    <Scroll weight="fill" className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
@@ -339,13 +335,15 @@ export default function DashboardPage() {
                   </div>
                 </div>
                 <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200/60">
+                    <span className="w-4 h-4 rounded-full bg-[#7209b7] flex items-center justify-center shrink-0">
+                      <Certificate weight="fill" className="w-3 h-3 text-white" />
+                    </span>
                     Standards Identified
                   </span>
                   <button
                     type="button"
-                    className="px-3.5 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-medium rounded-lg transition-colors cursor-pointer"
+                    className="px-3.5 py-1.5 bg-white border border-slate-300 hover:bg-purple-50 hover:text-purple-700 text-slate-700 text-xs font-medium rounded-lg transition-colors cursor-pointer"
                   >
                     Continue
                   </button>
@@ -354,18 +352,16 @@ export default function DashboardPage() {
             </article>
 
             {/* Activity Card 3: Electrical Equipment */}
-            <article className="bg-white rounded-xl border border-slate-200 p-5 hover:border-slate-300 hover:shadow-xs transition-all">
+            <article className="bg-white rounded-xl border border-slate-200 p-5 hover:border-purple-200 hover:shadow-xs transition-all">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 shrink-0">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path d="M13 10V3L4 14h7v7l9-11h-7z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8"></path>
-                    </svg>
+                  <div className="w-10 h-10 rounded-full bg-[#7209b7] flex items-center justify-center shrink-0 shadow-xs">
+                    <Lightning weight="fill" className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className="text-sm font-bold text-slate-900">Electrical Equipment & Switchgear</h3>
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-amber-50 text-amber-700 border border-amber-200 font-mono">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-amber-50 text-amber-700 border border-amber-200/60 font-mono">
                         IS/IEC 60947
                       </span>
                     </div>
@@ -378,8 +374,10 @@ export default function DashboardPage() {
                   </div>
                 </div>
                 <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200/60">
+                    <span className="w-4 h-4 rounded-full bg-[#ff9f1c] flex items-center justify-center shrink-0">
+                      <WarningCircle weight="fill" className="w-3 h-3 text-white" />
+                    </span>
                     Verification Required
                   </span>
                   <button
@@ -396,11 +394,11 @@ export default function DashboardPage() {
             <div className="rounded-lg bg-slate-100/80 p-3 border border-slate-200 flex items-center justify-between text-xs text-slate-600">
               <div className="flex items-center gap-4">
                 <span className="font-medium text-slate-800 font-mono">Quick Recents:</span>
-                <a href="#" className="hover:text-blue-600 flex items-center gap-1">
+                <a href="#" className="hover:text-purple-700 flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
                   IS Standard Search: BIS 1786
                 </a>
-                <a href="#" className="hover:text-blue-600 hidden md:flex items-center gap-1">
+                <a href="#" className="hover:text-purple-700 hidden md:flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
                   Tender Analysis: Rail Fasteners
                 </a>
@@ -415,23 +413,25 @@ export default function DashboardPage() {
             <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2 font-display">
-                  <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ff9f1c]"></span>
                   Pending Actions
                 </h3>
-                <span className="text-[11px] bg-amber-50 text-amber-800 font-semibold px-2 py-0.5 rounded border border-amber-200 font-mono">
+                <span className="text-[11px] bg-amber-50 text-amber-800 font-semibold px-2 py-0.5 rounded border border-amber-200/60 font-mono">
                   3 Priority
                 </span>
               </div>
               <ul className="space-y-3">
                 <li className="p-3 rounded-lg border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-colors">
                   <div className="flex items-start gap-2.5">
-                    <span className="text-amber-600 text-sm mt-0.5">⚠️</span>
+                    <span className="w-7 h-7 rounded-full bg-[#e63946] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                      <WarningCircle weight="fill" className="w-4 h-4 text-white" />
+                    </span>
                     <div className="flex-1">
                       <p className="text-xs font-semibold text-slate-900">Verify BIS Certificate authenticity</p>
                       <p className="text-[11px] text-slate-500 mt-0.5">Apex Safety Equipments (CM/L: 84001923)</p>
                       <div className="mt-2 flex items-center justify-between">
                         <span className="text-[10px] text-red-600 font-medium">Expires in 2 days</span>
-                        <button type="button" className="text-[11px] font-medium text-blue-600 hover:underline cursor-pointer">
+                        <button type="button" className="text-[11px] font-medium text-purple-700 hover:underline cursor-pointer">
                           Verify now →
                         </button>
                       </div>
@@ -440,13 +440,15 @@ export default function DashboardPage() {
                 </li>
                 <li className="p-3 rounded-lg border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-colors">
                   <div className="flex items-start gap-2.5">
-                    <span className="text-blue-600 text-sm mt-0.5">📄</span>
+                    <span className="w-7 h-7 rounded-full bg-[#7209b7] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                      <Table weight="fill" className="w-4 h-4 text-white" />
+                    </span>
                     <div className="flex-1">
                       <p className="text-xs font-semibold text-slate-900">Review Technical Compliance Matrix</p>
                       <p className="text-[11px] text-slate-500 mt-0.5">High-Voltage Cables • IS 7098 (Part 2)</p>
                       <div className="mt-2 flex items-center justify-between">
                         <span className="text-[10px] text-slate-500 font-mono">Matrix #TCM-09</span>
-                        <button type="button" className="text-[11px] font-medium text-blue-600 hover:underline cursor-pointer">
+                        <button type="button" className="text-[11px] font-medium text-purple-700 hover:underline cursor-pointer">
                           Review →
                         </button>
                       </div>
@@ -455,13 +457,15 @@ export default function DashboardPage() {
                 </li>
                 <li className="p-3 rounded-lg border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-colors">
                   <div className="flex items-start gap-2.5">
-                    <span className="text-emerald-600 text-sm mt-0.5">💬</span>
+                    <span className="w-7 h-7 rounded-full bg-[#2a9d8f] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                      <ChatCircleDots weight="fill" className="w-4 h-4 text-white" />
+                    </span>
                     <div className="flex-1">
                       <p className="text-xs font-semibold text-slate-900">Supplier Response Received</p>
                       <p className="text-[11px] text-slate-500 mt-0.5">Safetech Industries submitted lab test reports</p>
                       <div className="mt-2 flex items-center justify-between">
                         <span className="text-[10px] text-slate-400 font-mono">1 hour ago</span>
-                        <button type="button" className="text-[11px] font-medium text-blue-600 hover:underline cursor-pointer">
+                        <button type="button" className="text-[11px] font-medium text-purple-700 hover:underline cursor-pointer">
                           Open report →
                         </button>
                       </div>
@@ -475,14 +479,9 @@ export default function DashboardPage() {
             <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2 font-display">
-                  <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                    ></path>
-                  </svg>
+                  <span className="w-7 h-7 rounded-full bg-[#00a8e8] flex items-center justify-center shrink-0 shadow-xs">
+                    <Stack weight="fill" className="w-4 h-4 text-white" />
+                  </span>
                   Standards Intelligence
                 </h3>
                 <span className="text-[11px] text-slate-500 font-mono">Live BIS Feeds</span>
@@ -498,9 +497,9 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              <div className="rounded-lg border border-blue-100 bg-blue-50/60 p-3">
+              <div className="rounded-lg border border-purple-100 bg-purple-50/60 p-3">
                 <div className="flex items-start gap-2">
-                  <span className="px-1.5 py-0.5 rounded bg-blue-600 text-white text-[9px] font-bold tracking-wide uppercase mt-0.5 font-mono">
+                  <span className="px-1.5 py-0.5 rounded bg-purple-700 text-white text-[9px] font-bold tracking-wide uppercase mt-0.5 font-mono">
                     NEW QCO
                   </span>
                   <div className="text-xs">
@@ -508,7 +507,7 @@ export default function DashboardPage() {
                     <p className="text-[11px] text-slate-600 mt-0.5 leading-snug">
                       Steel & Iron wires conformances effective from 1st of next month under Gazette S.O. 1294.
                     </p>
-                    <a href="#" className="inline-block mt-1.5 text-[11px] font-medium text-blue-700 hover:underline">
+                    <a href="#" className="inline-block mt-1.5 text-[11px] font-medium text-purple-700 hover:underline">
                       Read BIS Notification →
                     </a>
                   </div>
@@ -522,14 +521,16 @@ export default function DashboardPage() {
       {/* ========================================================================= */}
       {/* BEGIN: Footer                                                             */}
       {/* ========================================================================= */}
-      <footer className="border-t border-slate-200 bg-white py-6 mt-12 text-xs text-slate-500">
+      <footer className="relative z-10 border-t border-slate-200 bg-white py-6 mt-12 text-xs text-slate-500">
         <div className="max-w-[1440px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbEqtDhDdjU-fL9LzdM0EcdVaFsrsIN7EYokV1OD3TZN91oPB54PMmxbIXKiBa9arSz1PNh6bOLU_GLaYiPp7Le0gJ0syUDiDRsyKw6yd4JYrOhZyRAVIjvyg3V3d1jhriz8B8SwqW6tI5L9FdIVGfB8ejAT5qracmJ3q21ib48Va0xOYyPZQjodq2fhFC3AlhD9laLr5wMatn53I_j5XFyCGqbPVmbpG8zKTFeUrsTnZUcXJnWDvB-LM6Za6dPRN0STw"
-              alt="Procure"
-              className="w-5 h-5 grayscale opacity-70 object-contain"
-            />
+            <div className="w-6 h-6 rounded-full bg-slate-900 flex items-center justify-center p-0.5 border border-purple-500/70 shrink-0 shadow-2xs">
+              <img
+                src="/procure-logo.png"
+                alt="Procure"
+                className="w-full h-full object-contain rounded-full opacity-90"
+              />
+            </div>
             <span className="font-medium text-slate-700 font-display">Procure AI Platform</span>
             <span>•</span>
             <span>Government Procurement & BIS Standards Compliance System</span>

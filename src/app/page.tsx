@@ -3,12 +3,13 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import DotField from "@/components/DotField";
+import { LandingPage } from "@/components/landing/LandingPage";
 
 export default function LandingAuthPage() {
   const router = useRouter();
 
-  // Intro Animation States
-  const [viewMode, setViewMode] = useState<"intro" | "portal">("intro");
+  // View Modes: "landing" (Main 2D Story Landing Page) | "intro" (Cinematic Brand Intro) | "portal" (Auth Portal)
+  const [viewMode, setViewMode] = useState<"landing" | "intro" | "portal">("landing");
   const [telemetryText, setTelemetryText] = useState<string>("Phase 1: Aligning CAD Coordinate Grid...");
   const [shardsAssembled, setShardsAssembled] = useState<boolean>(false);
   const [shardsLocked, setShardsLocked] = useState<boolean>(false);
@@ -132,16 +133,16 @@ export default function LandingAuthPage() {
       }, 2300)
     );
 
-    // Phase 5 (3.3s): Transition to Auth Portal
+    // Phase 5 (3.3s): Transition to Landing Page
     timersRef.current.push(
       setTimeout(() => {
-        setViewMode("portal");
+        setViewMode("landing");
       }, 3300)
     );
   }
 
   useEffect(() => {
-    runBrandIntro();
+    // Keep landing as default view
     return () => clearAllTimers();
   }, []);
 
@@ -261,6 +262,10 @@ export default function LandingAuthPage() {
     router.push("/dashboard");
   }
 
+  if (viewMode === "landing") {
+    return <LandingPage onOpenAuthPortal={() => setViewMode("portal")} />;
+  }
+
   return (
     <div
       className={`fixed inset-0 w-screen h-screen m-0 p-0 overflow-hidden select-none bg-grid-pattern text-[#161616] font-sans ${
@@ -271,79 +276,81 @@ export default function LandingAuthPage() {
       <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 1 }}>
         <DotField
           dotRadius={2.0}
-          dotSpacing={18}
+          dotSpacing={9}
           cursorRadius={320}
           bulgeOnly={true}
           bulgeStrength={45}
           glowRadius={160}
-          gradientFrom="rgba(15, 98, 254, 0.28)"
-          gradientTo="rgba(15, 98, 254, 0.12)"
-          glowColor="rgba(15, 98, 254, 0.18)"
+          gradientFrom="rgba(109, 40, 217, 0.52)"
+          gradientTo="rgba(91, 33, 182, 0.40)"
+          glowColor="rgba(124, 58, 237, 0.15)"
         />
       </div>
       {/* ========================================================================= */}
       {/* 1. FULL-SCREEN CINEMATIC BRAND INTRO VIEW (100vw, 100vh Takeover)       */}
       {/* ========================================================================= */}
-      <section
-        id="full-intro-view"
-        className="absolute inset-0 w-full h-full flex flex-col items-center justify-center gov-canvas-grid z-20"
-      >
-        <div className="flex flex-col items-center justify-center relative">
-          <div
-            id="intro-shards-stage"
-            className={`shards-stage relative flex items-center justify-center ${
-              shardsAssembled ? "phase-assembled" : ""
-            } ${shardsLocked ? "phase-locked" : ""}`}
-          >
-            <div className="cad-ring-outer"></div>
-            <div className="cad-ring-inner"></div>
-            <div className="cad-crosshairs flex items-center justify-center">
-              <div className="w-full h-[1px] bg-[#0f62fe]/25"></div>
-              <div className="absolute h-full w-[1px] bg-[#0f62fe]/25"></div>
+      {viewMode === "intro" && (
+        <section
+          id="full-intro-view"
+          className="absolute inset-0 w-full h-full flex flex-col items-center justify-center gov-canvas-grid z-20"
+        >
+          <div className="flex flex-col items-center justify-center relative">
+            <div
+              id="intro-shards-stage"
+              className={`shards-stage relative flex items-center justify-center ${
+                shardsAssembled ? "phase-assembled" : ""
+              } ${shardsLocked ? "phase-locked" : ""}`}
+            >
+              <div className="cad-ring-outer"></div>
+              <div className="cad-ring-inner"></div>
+              <div className="cad-crosshairs flex items-center justify-center">
+                <div className="w-full h-[1px] bg-purple-500/25"></div>
+                <div className="absolute h-full w-[1px] bg-purple-500/25"></div>
+              </div>
+
+              <div className="shard shard-n"></div>
+              <div className="shard shard-ne"></div>
+              <div className="shard shard-se"></div>
+              <div className="shard shard-s"></div>
+              <div className="shard shard-sw"></div>
+              <div className="shard shard-nw"></div>
+
+              <img
+                id="master-logo-img"
+                src="/procure-logo.png"
+                alt="Procure Master Emblem"
+                className="full-logo-overlay drop-shadow-sm"
+              />
             </div>
 
-            <div className="shard shard-n"></div>
-            <div className="shard shard-ne"></div>
-            <div className="shard shard-se"></div>
-            <div className="shard shard-s"></div>
-            <div className="shard shard-sw"></div>
-            <div className="shard shard-nw"></div>
-
-            <img
-              id="master-logo-img"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBI-EJFDV5oo2IPRPkvAneZ1Zi8XJUNUnzGNjvDBB6gA5VANmMlOMuQNP1y_agNGvSouqUKBmb0eZom7f1skxIxHQ5Lzmo56Qmk95S7h0VN3UlUTgdBRwZthluu0xybCWgrcCLjqiVKJ2SZz5tK9Jxrbas9Z6OVMnm1WKvAZNS4RVU7BdNsYGNIFtKYLCqCSDKE5NyvTiU_FMOT70ClK_Szoyo7PmwJrGMZAe7_41dOd0UcJPje545c-LUa0ePhzqp2vyE"
-              alt="Procure Master Emblem"
-              className="full-logo-overlay drop-shadow-sm"
-            />
+            <div
+              id="intro-wordmark"
+              className={`intro-wordmark-container text-center flex flex-col items-center mt-7 ${
+                wordmarkActive ? "phase-wordmark-active" : ""
+              }`}
+            >
+              <div className="flex items-center justify-center">
+                <h1 className="brand-wordmark-track text-5xl sm:text-6xl font-bold tracking-tight text-[#161616] font-display flex items-center select-none">
+                  <span className="brand-char char-1">P</span>
+                  <span className="brand-char char-2">r</span>
+                  <span className="brand-char char-3">o</span>
+                  <span className="brand-char char-4">c</span>
+                  <span className="brand-char char-5">u</span>
+                  <span className="brand-char char-6">r</span>
+                  <span className="brand-char char-7">e</span>
+                </h1>
+              </div>
+              <p className="wordmark-subtext mt-3 text-sm sm:text-base font-medium text-[#525252] tracking-wide max-w-lg text-center font-headline">
+                National Procurement & Standards Intelligence Portal
+              </p>
+              <div className="mt-4 flex items-center gap-2 text-xs font-mono text-purple-700 bg-purple-50 border border-purple-200 px-3 py-1 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-ping"></span>
+                <span id="telemetry-text">{telemetryText}</span>
+              </div>
+            </div>
           </div>
-
-          <div
-            id="intro-wordmark"
-            className={`intro-wordmark-container text-center flex flex-col items-center mt-7 ${
-              wordmarkActive ? "phase-wordmark-active" : ""
-            }`}
-          >
-            <div className="flex items-center justify-center">
-              <h1 className="brand-wordmark-track text-5xl sm:text-6xl font-bold tracking-tight text-[#161616] font-display flex items-center select-none">
-                <span className="brand-char char-1">P</span>
-                <span className="brand-char char-2">r</span>
-                <span className="brand-char char-3">o</span>
-                <span className="brand-char char-4">c</span>
-                <span className="brand-char char-5">u</span>
-                <span className="brand-char char-6">r</span>
-                <span className="brand-char char-7">e</span>
-              </h1>
-            </div>
-            <p className="wordmark-subtext mt-3 text-sm sm:text-base font-medium text-[#525252] tracking-wide max-w-lg text-center font-headline">
-              National Procurement & Standards Intelligence Portal
-            </p>
-            <div className="mt-4 flex items-center gap-2 text-xs font-mono text-[#0f62fe] bg-[#e8f1ff] border border-[#a7c7ff] px-3 py-1 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0f62fe] animate-ping"></span>
-              <span id="telemetry-text">{telemetryText}</span>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ========================================================================= */}
       {/* 2. AUTHENTICATION & VERIFICATION ENCLAVE PORTAL VIEW                      */}
@@ -355,12 +362,11 @@ export default function LandingAuthPage() {
         {/* GovTech Official Header Banner */}
         <header className="w-full px-6 sm:px-10 py-3.5 bg-white/95 backdrop-blur-md border-b border-[#e0e0e0] flex items-center justify-between shadow-xs sticky top-0 z-30">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-md overflow-hidden flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center p-1 border-2 border-purple-600/80 shrink-0 shadow-xs">
               <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf2GMR3s52rHvYDhhz3mU-kvk4U6SQhOuL1nVBpexqC-_JfAQqp_gZQBqijVTZAQyHjha05JUj-nLNCXriYZcTEyzLCc5ncuadE7aZMyDlZT1iQh33G6BhLk9cPZ4bNtLvIkXtNoGkAv3JfD6DWyUAfUZPG_51xJxxb-EXbEXVy4dxGHTCozyPtSB1uGzaoeOSL8ozumCcDLia70DX_8Q9G1Lkec_7zvluUUB6-cCLmo7ntbA2HDs-275oDyb2bFJJfZw"
+                src="/procure-logo.png"
                 alt="Procure"
-                className="w-full h-full object-contain"
-                style={{ mixBlendMode: "multiply" }}
+                className="w-full h-full object-contain rounded-full"
               />
             </div>
             <div className="flex flex-col">
@@ -373,8 +379,14 @@ export default function LandingAuthPage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3 text-xs text-[#525252]">
-            <span className="flex items-center gap-1 font-mono">
+          <div className="flex items-center gap-4 text-xs text-[#525252]">
+            <button
+              onClick={() => setViewMode("landing")}
+              className="text-xs font-semibold text-purple-700 hover:underline flex items-center gap-1 bg-purple-50 px-3 py-1.5 rounded-lg border border-purple-200 cursor-pointer"
+            >
+              ← Back to Landing Story
+            </button>
+            <span className="hidden sm:flex items-center gap-1 font-mono">
               <span className="material-symbols-outlined text-sm text-[#0f62fe]">shield</span>
               <span className="hidden md:inline">256-Bit TLS Secured</span>
             </span>
@@ -392,12 +404,11 @@ export default function LandingAuthPage() {
           >
             {/* Header with Master Logo & Wordmark */}
             <div className="flex items-center gap-3.5 pb-4 border-b border-[#e0e0e0]/70">
-              <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center bg-[#f4f4f4] p-1 border border-[#e0e0e0]">
+              <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center p-1 border-2 border-purple-600/80 shrink-0 shadow-xs">
                 <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGIVhuejtB6O0QgRJAsxcW6DOMzKPLjIrSkIVzGHMH4Syz-dHTMhDCOQ5dUr63SFU9mZG1KbLsfp8dMSFJVw0zWp7GkbHe-mlJjOGRw2q4bvqNO8Jgq2ILvcGdDqCY_hwEBhTNSpS2d6Uer2ikvcCe3giHAJ_zyOxAdchlKTnEAAucYyRd-ptr9gLH7HwB4h5AIGOTi1hsGINQuq-ArK6b0zOiYReCYLslubq2tlarNRK02rWvdptG_0HYo-kUv9Tsew0"
+                  src="/procure-logo.png"
                   alt="Procure Symbol"
-                  className="w-full h-full object-contain"
-                  style={{ mixBlendMode: "multiply" }}
+                  className="w-full h-full object-contain rounded-full"
                 />
               </div>
               <div>
@@ -408,75 +419,89 @@ export default function LandingAuthPage() {
               </div>
             </div>
 
-            {/* Stepper Progress Bar */}
-            <div className="mt-4 py-2 px-3 bg-[#f8f9fa] border border-[#e0e0e0] rounded text-[11px] font-mono text-[#525252] flex items-center justify-between overflow-x-auto">
-              {/* Step 1: Login */}
-              {authStep === "login" ? (
-                <span className="font-bold text-[#0f62fe]">1. Login</span>
-              ) : (
-                <span className="font-semibold text-emerald-700 flex items-center gap-0.5">
-                  <span className="w-3.5 h-3.5 rounded-full bg-emerald-100 flex items-center justify-center text-[9px] font-bold text-emerald-800">
-                    ✓
-                  </span>
-                  1. Login
-                </span>
-              )}
-              <span className="text-neutral-400">→</span>
+            {/* Modern Process Stepper Bar */}
+            <div className="mt-5 mb-6 px-1">
+              <div className="relative flex items-center justify-between">
+                {/* Background track line */}
+                <div className="absolute top-3.5 left-6 right-6 h-0.5 bg-slate-200 z-0" />
+                {/* Active progress fill line */}
+                <div
+                  className="absolute top-3.5 left-6 h-0.5 bg-purple-600 transition-all duration-300 z-0"
+                  style={{
+                    width:
+                      authStep === "login"
+                        ? "0%"
+                        : authStep === "otp" || authStep === "otp-success"
+                        ? "33%"
+                        : authStep === "role"
+                        ? "66%"
+                        : "calc(100% - 3rem)",
+                  }}
+                />
 
-              {/* Step 2: OTP */}
-              {authStep === "login" ? (
-                <span className="text-neutral-500">2. OTP</span>
-              ) : authStep === "otp" ? (
-                <span className="font-bold text-[#0f62fe] bg-blue-50/80 px-1.5 py-0.5 rounded border border-blue-200 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0f62fe] animate-pulse"></span>
-                  2. OTP
-                </span>
-              ) : (
-                <span className="font-semibold text-emerald-700 flex items-center gap-0.5">
-                  <span className="w-3.5 h-3.5 rounded-full bg-emerald-100 flex items-center justify-center text-[9px] font-bold text-emerald-800">
-                    ✓
-                  </span>
-                  2. OTP
-                </span>
-              )}
-              <span className="text-neutral-400">→</span>
-
-              {/* Step 3: Role */}
-              {authStep === "login" || authStep === "otp" || authStep === "otp-success" ? (
-                <span className="text-neutral-500">3. Role</span>
-              ) : authStep === "role" ? (
-                <span className="font-bold text-[#0f62fe] bg-blue-50/80 px-1.5 py-0.5 rounded border border-blue-200 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0f62fe]"></span>
-                  3. Role
-                </span>
-              ) : (
-                <span className="font-semibold text-emerald-700 flex items-center gap-0.5">
-                  <span className="w-3.5 h-3.5 rounded-full bg-emerald-100 flex items-center justify-center text-[9px] font-bold text-emerald-800">
-                    ✓
-                  </span>
-                  3. Role
-                </span>
-              )}
-              <span className="text-neutral-400">→</span>
-
-              {/* Step 4: Verify */}
-              {authStep === "verify" ? (
-                <span className="font-bold text-[#0f62fe] bg-blue-50/80 px-1.5 py-0.5 rounded border border-blue-200 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0f62fe] animate-pulse"></span>
-                  4. Verify ({verifySubStep}/4)
-                </span>
-              ) : authStep === "verify-success" ? (
-                <span className="font-semibold text-emerald-700 flex items-center gap-0.5">
-                  <span className="w-3.5 h-3.5 rounded-full bg-emerald-100 flex items-center justify-center text-[9px] font-bold text-emerald-800">
-                    ✓
-                  </span>
-                  4. Verify
-                </span>
-              ) : (
-                <span className="text-neutral-500">4. Verify</span>
-              )}
-              <span className="text-neutral-400">→</span>
-              <span className="text-neutral-500">Dashboard</span>
+                {/* Stepper items */}
+                {[
+                  {
+                    key: "login",
+                    label: "1. Login",
+                    num: 1,
+                    isCompleted: authStep !== "login",
+                    isActive: authStep === "login",
+                  },
+                  {
+                    key: "otp",
+                    label: "2. Security OTP",
+                    num: 2,
+                    isCompleted: authStep === "role" || authStep === "verify" || authStep === "verify-success",
+                    isActive: authStep === "otp" || authStep === "otp-success",
+                  },
+                  {
+                    key: "role",
+                    label: "3. Choose Role",
+                    num: 3,
+                    isCompleted: authStep === "verify" || authStep === "verify-success",
+                    isActive: authStep === "role",
+                  },
+                  {
+                    key: "verify",
+                    label: "4. Verification",
+                    num: 4,
+                    isCompleted: authStep === "verify-success",
+                    isActive: authStep === "verify",
+                  },
+                ].map((step) => (
+                  <div key={step.key} className="relative z-10 flex flex-col items-center">
+                    <div
+                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-200 ${
+                        step.isCompleted
+                          ? "bg-[#2a9d8f] text-white shadow-xs"
+                          : step.isActive
+                          ? "bg-[#7209b7] text-white ring-4 ring-purple-100 shadow-sm scale-110"
+                          : "bg-white text-slate-400 border-2 border-slate-200"
+                      }`}
+                    >
+                      {step.isCompleted ? (
+                        <svg className="w-3.5 h-3.5 stroke-[3]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      ) : (
+                        step.num
+                      )}
+                    </div>
+                    <span
+                      className={`mt-1.5 text-[11px] font-semibold tracking-tight transition-colors ${
+                        step.isActive
+                          ? "text-purple-700"
+                          : step.isCompleted
+                          ? "text-slate-800"
+                          : "text-slate-400"
+                      }`}
+                    >
+                      {step.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* ============================================================ */}
@@ -490,33 +515,40 @@ export default function LandingAuthPage() {
                 </p>
                 <form className="mt-5 space-y-4" onSubmit={handleSendOtp}>
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#161616] mb-1.5 font-mono">
-                      G-Email or Mobile Number
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                      Email or Mobile Number
                     </label>
                     <div className="relative">
                       <input
                         type="text"
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
-                        placeholder="Enter your email ID or phone number"
-                        className="w-full pl-3.5 pr-24 py-2.5 text-sm bg-[#f8f9fa] border border-[#8d8d8d] rounded-lg text-[#161616] focus:bg-white focus:outline-none focus:border-[#0f62fe] focus:ring-1 focus:ring-[#0f62fe] font-mono"
+                        placeholder="e.g. officer@gov.in or mobile number"
+                        className="w-full pl-3.5 pr-24 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:bg-white focus:outline-none focus:border-[#7209b7] focus:ring-2 focus:ring-purple-100 transition-all"
                       />
-                      <span className="absolute right-2.5 top-2.5 text-[11px] font-semibold text-[#198038] bg-[#eefaf0] border border-[#a7f0ba] px-2 py-0.5 rounded flex items-center gap-1">
-                        <span className="material-symbols-outlined text-xs">verified</span>
-                        &nbsp;Verified
+                      <span className="absolute right-2.5 top-2.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md flex items-center gap-1">
+                        <span className="material-symbols-outlined text-xs text-emerald-600">verified</span>
+                        Verified
                       </span>
                     </div>
                   </div>
                   <button
                     type="submit"
-                    className="w-full py-3 px-4 bg-[#0f62fe] hover:bg-[#0043ce] text-white font-semibold text-sm rounded-lg flex items-center justify-center gap-2 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#0f62fe]"
+                    className="w-full py-3 px-4 bg-[#7209b7] hover:bg-[#560bad] text-white font-semibold text-sm rounded-lg flex items-center justify-center gap-2 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-purple-200 cursor-pointer"
                   >
-                    <span>Send OTP Verification</span>
+                    <span>Send Verification Code</span>
                     <span className="material-symbols-outlined text-base">arrow_forward</span>
                   </button>
                 </form>
-                <div className="mt-6 pt-4 border-t border-[#f4f4f4] flex items-center justify-between text-[11px] text-[#525252]">
-                  <span className="font-mono text-[#0f62fe] font-semibold">Step 1 of 4</span>
+                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                  <span className="inline-flex items-center gap-1.5 text-slate-600 font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#7209b7]"></span>
+                    Step 1 of 4: Authentication
+                  </span>
+                  <span className="flex items-center gap-1 text-[11px] text-slate-400">
+                    <span className="material-symbols-outlined text-xs text-emerald-600">lock</span>
+                    Encrypted & Secure
+                  </span>
                 </div>
               </div>
             )}
@@ -533,15 +565,15 @@ export default function LandingAuthPage() {
                   </p>
                 </div>
 
-                <div className="bg-[#f8f9fa] border border-[#e0e0e0] rounded-lg p-2.5 mb-5 flex items-center justify-between text-xs">
+                <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 mb-5 flex items-center justify-between text-xs">
                   <div className="flex items-center space-x-2 text-slate-700 truncate pr-2">
-                    <span className="material-symbols-outlined text-base text-[#525252]">lock</span>
-                    <span className="truncate font-mono font-medium">{maskContact(inputValue)}</span>
+                    <span className="material-symbols-outlined text-base text-slate-400">shield_lock</span>
+                    <span className="truncate font-semibold text-slate-900">{maskContact(inputValue)}</span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setAuthStep("login")}
-                    className="text-[#0f62fe] hover:underline font-semibold text-xs shrink-0 cursor-pointer"
+                    className="text-[#7209b7] hover:text-[#560bad] font-semibold text-xs shrink-0 cursor-pointer"
                   >
                     Change
                   </button>
@@ -549,8 +581,8 @@ export default function LandingAuthPage() {
 
                 <form onSubmit={handleVerifyOtp}>
                   <div className="mb-4">
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#161616] mb-2 font-mono">
-                      One-Time Security Code
+                    <label className="block text-xs font-semibold text-slate-700 mb-2">
+                      Enter 6-Digit Verification Code
                     </label>
                     <div className="flex justify-between gap-1.5 sm:gap-2">
                       {otpDigits.map((digit, index) => (
@@ -567,10 +599,10 @@ export default function LandingAuthPage() {
                           onChange={(e) => handleOtpChange(index, e.target.value)}
                           onKeyDown={(e) => handleOtpKeyDown(index, e)}
                           onPaste={handleOtpPaste}
-                          className={`w-11 h-13 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-bold text-[#161616] bg-white border rounded-lg outline-none transition-all font-mono ${
+                          className={`w-11 h-13 sm:w-12 sm:h-14 text-center text-xl sm:text-2xl font-bold text-slate-900 bg-white border rounded-xl outline-none transition-all ${
                             otpError
                               ? "border-red-500 focus:border-red-500"
-                              : "border-[#8d8d8d] focus:border-[#0f62fe] focus:ring-2 focus:ring-[#d0e2ff]"
+                              : "border-slate-300 focus:border-[#7209b7] focus:ring-2 focus:ring-purple-100 shadow-2xs"
                           }`}
                         />
                       ))}
@@ -591,7 +623,7 @@ export default function LandingAuthPage() {
                   <button
                     type="submit"
                     disabled={isVerifying}
-                    className="w-full py-3 px-4 bg-[#0f62fe] hover:bg-[#0043ce] text-white font-semibold text-sm rounded-lg flex items-center justify-center gap-2 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#0f62fe] cursor-pointer disabled:opacity-70"
+                    className="w-full py-3 px-4 bg-[#7209b7] hover:bg-[#560bad] text-white font-semibold text-sm rounded-lg flex items-center justify-center gap-2 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-purple-200 cursor-pointer disabled:opacity-70"
                   >
                     {isVerifying ? (
                       <>
@@ -600,20 +632,20 @@ export default function LandingAuthPage() {
                       </>
                     ) : (
                       <>
-                        <span>Verify OTP</span>
+                        <span>Verify & Continue</span>
                         <span className="material-symbols-outlined text-base">arrow_forward</span>
                       </>
                     )}
                   </button>
                 </form>
 
-                <div className="mt-5 text-center text-xs text-[#525252] space-y-2">
+                <div className="mt-5 text-center text-xs text-slate-500 space-y-2">
                   <div>
                     Didn&apos;t receive code?{" "}
                     {!canResend ? (
-                      <span className="font-medium text-[#161616]">
-                        Resend OTP in{" "}
-                        <span className="font-mono text-[#0f62fe] font-bold">
+                      <span className="font-medium text-slate-700">
+                        Resend code in{" "}
+                        <span className="font-semibold text-purple-700">
                           {remainingSeconds}s
                         </span>
                       </span>
@@ -621,9 +653,9 @@ export default function LandingAuthPage() {
                       <button
                         type="button"
                         onClick={handleResendOtp}
-                        className="text-[#0f62fe] font-semibold hover:underline cursor-pointer ml-1"
+                        className="text-purple-700 font-semibold hover:underline cursor-pointer ml-1"
                       >
-                        Resend OTP
+                        Resend Code
                       </button>
                     )}
                   </div>
@@ -631,7 +663,7 @@ export default function LandingAuthPage() {
                     <button
                       type="button"
                       onClick={() => setAuthStep("login")}
-                      className="inline-flex items-center text-[#525252] hover:text-[#161616] font-medium hover:underline cursor-pointer"
+                      className="inline-flex items-center text-slate-500 hover:text-slate-800 font-medium hover:underline cursor-pointer"
                     >
                       <span className="material-symbols-outlined text-sm mr-1">arrow_back</span>
                       Change email or mobile number
@@ -639,8 +671,15 @@ export default function LandingAuthPage() {
                   </div>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-[#f4f4f4] flex items-center justify-between text-[11px] text-[#525252]">
-                  <span className="font-mono text-[#0f62fe] font-semibold">Step 2 of 4</span>
+                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                  <span className="inline-flex items-center gap-1.5 text-slate-600 font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#7209b7]"></span>
+                    Step 2 of 4: Code Verification
+                  </span>
+                  <span className="flex items-center gap-1 text-[11px] text-slate-400">
+                    <span className="material-symbols-outlined text-xs text-emerald-600">verified_user</span>
+                    2FA Verified
+                  </span>
                 </div>
               </div>
             )}
@@ -654,29 +693,29 @@ export default function LandingAuthPage() {
                   <span className="material-symbols-outlined text-3xl font-bold">check</span>
                 </div>
 
-                <h2 className="text-2xl font-bold tracking-tight text-[#161616] mb-1">
+                <h2 className="text-2xl font-bold tracking-tight text-slate-900 mb-1">
                   OTP Verified
                 </h2>
-                <p className="text-xs text-[#525252] mb-6 leading-relaxed">
-                  Your contact information has been successfully verified.
+                <p className="text-xs text-slate-500 mb-6 leading-relaxed">
+                  Your identity has been successfully authenticated.
                 </p>
 
-                <div className="bg-[#f8f9fa] border border-[#e0e0e0] rounded-lg p-3 text-xs text-left mb-6 space-y-1 font-mono">
-                  <div className="flex justify-between text-[#525252]">
-                    <span>Identity Verified:</span>
-                    <span className="text-[#161616] font-medium">{maskContact(inputValue)}</span>
+                <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-4 text-xs text-left mb-6 space-y-2">
+                  <div className="flex justify-between text-slate-600">
+                    <span className="text-slate-500">Verified Contact:</span>
+                    <span className="text-slate-900 font-semibold">{maskContact(inputValue)}</span>
                   </div>
-                  <div className="flex justify-between text-[#525252]">
-                    <span>Token Timestamp:</span>
-                    <span className="text-[#161616] font-medium">
+                  <div className="flex justify-between text-slate-600">
+                    <span className="text-slate-500">Verification Time:</span>
+                    <span className="text-slate-900 font-medium">
                       {new Date().toISOString().slice(0, 10)} 12:50:24 IST
                     </span>
                   </div>
-                  <div className="flex justify-between text-[#525252]">
-                    <span>Status:</span>
+                  <div className="flex justify-between text-slate-600">
+                    <span className="text-slate-500">Security Clearance:</span>
                     <span className="text-emerald-700 font-semibold flex items-center">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block mr-1"></span>
-                      Authorized Node Session
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block mr-1.5"></span>
+                      Authorized Session
                     </span>
                   </div>
                 </div>
@@ -684,16 +723,18 @@ export default function LandingAuthPage() {
                 <button
                   type="button"
                   onClick={() => setAuthStep("role")}
-                  className="w-full py-3 px-4 bg-[#0f62fe] hover:bg-[#0043ce] text-white font-semibold text-sm rounded-lg flex items-center justify-center gap-2 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#0f62fe] cursor-pointer"
+                  className="w-full py-3 px-4 bg-[#7209b7] hover:bg-[#560bad] text-white font-semibold text-sm rounded-lg flex items-center justify-center gap-2 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-purple-200 cursor-pointer"
                 >
                   <span>Continue to Role Selection</span>
                   <span className="material-symbols-outlined text-base">arrow_forward</span>
                 </button>
 
-                <div className="mt-6 pt-4 border-t border-[#f4f4f4] flex items-center justify-between text-[11px] text-[#525252]">
-                  <span className="font-mono text-emerald-700 font-semibold">
-                    Step 2 of 4 Complete ✓
+                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                  <span className="text-emerald-700 font-semibold flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-sm">check_circle</span>
+                    Step 2 of 4 Complete
                   </span>
+                  <span className="text-[11px] text-slate-400">Next: Role Selection</span>
                 </div>
               </div>
             )}
@@ -724,21 +765,22 @@ export default function LandingAuthPage() {
                     tabIndex={0}
                     role="radio"
                     aria-checked={selectedRole === "officer"}
-                    className={`role-card-transition cursor-pointer relative flex flex-col justify-between p-5 rounded-xl border ${
+                    className={`role-card-transition cursor-pointer relative flex flex-col justify-between p-5 rounded-xl border transition-all ${
                       selectedRole === "officer"
-                        ? "border-[#0f62fe] bg-blue-50/40 ring-2 ring-[#0f62fe]/20"
+                        ? "border-[#7209b7] bg-purple-50/40 ring-2 ring-[#7209b7]/20 shadow-sm"
                         : "border-slate-200 bg-white hover:border-slate-300"
                     }`}
                   >
                     <div>
                       <div className="flex items-start justify-between gap-2 mb-3">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-[#0f62fe] bg-blue-50 px-2 py-0.5 rounded border border-blue-100 font-mono">
-                          Public Sector / GeM / BIS
+                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200/60">
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                          Public Sector · GeM · BIS
                         </span>
                         <div
                           className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
                             selectedRole === "officer"
-                              ? "border-[#0f62fe] bg-[#0f62fe]"
+                              ? "border-[#7209b7] bg-[#7209b7]"
                               : "border-slate-300"
                           }`}
                         >
@@ -750,7 +792,7 @@ export default function LandingAuthPage() {
                         </div>
                       </div>
                       <div className="flex items-center gap-3 mb-2.5">
-                        <div className="w-9 h-9 rounded-lg bg-blue-50 text-[#0f62fe] flex items-center justify-center shrink-0 border border-blue-100">
+                        <div className="w-9 h-9 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center shrink-0 border border-blue-100">
                           <span className="material-symbols-outlined text-xl">account_balance</span>
                         </div>
                         <h2 className="text-sm font-semibold text-slate-900 leading-snug">
@@ -764,7 +806,7 @@ export default function LandingAuthPage() {
                       </p>
                     </div>
                     <div className="mt-4 pt-3 border-t border-slate-100 flex items-center text-[11px] text-slate-500 font-medium">
-                      <span className="text-[#0f62fe] font-semibold mr-1.5">•</span> Official
+                      <span className="text-[#7209b7] font-semibold mr-1.5">•</span> Official
                       gov.in / nic.in authorized
                     </div>
                   </div>
@@ -778,21 +820,22 @@ export default function LandingAuthPage() {
                     tabIndex={0}
                     role="radio"
                     aria-checked={selectedRole === "supplier"}
-                    className={`role-card-transition cursor-pointer relative flex flex-col justify-between p-5 rounded-xl border ${
+                    className={`role-card-transition cursor-pointer relative flex flex-col justify-between p-5 rounded-xl border transition-all ${
                       selectedRole === "supplier"
-                        ? "border-[#0f62fe] bg-blue-50/40 ring-2 ring-[#0f62fe]/20"
+                        ? "border-[#2a9d8f] bg-teal-50/40 ring-2 ring-[#2a9d8f]/20 shadow-sm"
                         : "border-slate-200 bg-white hover:border-slate-300"
                     }`}
                   >
                     <div>
                       <div className="flex items-start justify-between gap-2 mb-3">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-mono">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200/60">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
                           Verified Manufacturer & Vendor
                         </span>
                         <div
                           className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
                             selectedRole === "supplier"
-                              ? "border-[#0f62fe] bg-[#0f62fe]"
+                              ? "border-[#2a9d8f] bg-[#2a9d8f]"
                               : "border-slate-300"
                           }`}
                         >
@@ -818,7 +861,7 @@ export default function LandingAuthPage() {
                       </p>
                     </div>
                     <div className="mt-4 pt-3 border-t border-slate-100 flex items-center text-[11px] text-slate-500 font-medium">
-                      <span className="text-emerald-600 font-semibold mr-1.5">•</span> GSTIN /
+                      <span className="text-[#2a9d8f] font-semibold mr-1.5">•</span> GSTIN /
                       MSME registered entities
                     </div>
                   </div>
@@ -836,15 +879,15 @@ export default function LandingAuthPage() {
                     }}
                     className={`w-full py-3 px-6 rounded-lg text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all ${
                       selectedRole
-                        ? "bg-[#0f62fe] hover:bg-[#0043ce] cursor-pointer shadow-sm"
+                        ? "bg-[#7209b7] hover:bg-[#560bad] cursor-pointer shadow-sm focus:ring-2 focus:ring-purple-200"
                         : "bg-slate-300 cursor-not-allowed shadow-none"
                     }`}
                   >
                     <span>Continue to Verification</span>
                     <span className="material-symbols-outlined text-base">arrow_forward</span>
                   </button>
-                  <p className="text-[11px] text-slate-400 text-center mt-3 font-mono">
-                    You can only select one role for this account session.
+                  <p className="text-xs text-slate-400 text-center mt-3">
+                    You can easily toggle or request multi-role access later from your profile.
                   </p>
                 </div>
               </div>
@@ -856,24 +899,54 @@ export default function LandingAuthPage() {
             {authStep === "verify" && selectedRole === "officer" && (
               <div className="mt-5 animate-fade-in">
                 {/* Sub-Stepper Navigation Bar */}
-                <div className="flex items-center justify-between pb-3 mb-5 border-b border-slate-100 text-xs font-mono text-[#525252]">
-                  <span className="font-semibold text-[#0f62fe]">
-                    Officer Verification ({verifySubStep}/4)
-                  </span>
-                  <div className="flex gap-1.5">
-                    {[1, 2, 3, 4].map((step) => (
-                      <span
-                        key={step}
-                        className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
-                          step === verifySubStep
-                            ? "bg-[#0f62fe] text-white"
-                            : step < verifySubStep
-                            ? "bg-emerald-100 text-emerald-800"
-                            : "bg-slate-100 text-slate-400"
-                        }`}
-                      >
-                        {step < verifySubStep ? "✓" : step}
+                <div className="pb-4 mb-6 border-b border-slate-100">
+                  <div className="flex items-center justify-between mb-2.5">
+                    <div>
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#7209b7]">
+                        Stage 4 of 4
                       </span>
+                      <h3 className="text-base font-bold text-slate-900 mt-0.5">
+                        Officer Verification
+                        <span className="ml-2 text-xs font-normal text-slate-500">
+                          (Step {verifySubStep} of 4)
+                        </span>
+                      </h3>
+                    </div>
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-100">
+                      {Math.round((verifySubStep / 4) * 100)}% Completed
+                    </span>
+                  </div>
+
+                  {/* Modern 4-segment progress track */}
+                  <div className="grid grid-cols-4 gap-2 pt-1">
+                    {[
+                      { step: 1, name: "Identity" },
+                      { step: 2, name: "Department" },
+                      { step: 3, name: "Credentials" },
+                      { step: 4, name: "Declaration" },
+                    ].map((item) => (
+                      <div key={item.step} className="flex flex-col gap-1.5">
+                        <div
+                          className={`h-1.5 rounded-full transition-all duration-300 ${
+                            item.step < verifySubStep
+                              ? "bg-[#2a9d8f]"
+                              : item.step === verifySubStep
+                              ? "bg-[#7209b7]"
+                              : "bg-slate-100"
+                          }`}
+                        />
+                        <span
+                          className={`text-[11px] font-medium transition-colors ${
+                            item.step === verifySubStep
+                              ? "text-purple-700 font-bold"
+                              : item.step < verifySubStep
+                              ? "text-slate-700 font-semibold"
+                              : "text-slate-400"
+                          }`}
+                        >
+                          {item.name}
+                        </span>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -1201,24 +1274,55 @@ export default function LandingAuthPage() {
             {/* SUPPLIER 4-STEP VERIFICATION */}
             {authStep === "verify" && selectedRole === "supplier" && (
               <div className="mt-5 animate-fade-in">
-                <div className="flex items-center justify-between pb-3 mb-5 border-b border-slate-100 text-xs font-mono text-[#525252]">
-                  <span className="font-semibold text-emerald-700">
-                    Supplier Verification ({verifySubStep}/4)
-                  </span>
-                  <div className="flex gap-1.5">
-                    {[1, 2, 3, 4].map((step) => (
-                      <span
-                        key={step}
-                        className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
-                          step === verifySubStep
-                            ? "bg-emerald-600 text-white"
-                            : step < verifySubStep
-                            ? "bg-emerald-100 text-emerald-800"
-                            : "bg-slate-100 text-slate-400"
-                        }`}
-                      >
-                        {step < verifySubStep ? "✓" : step}
+                {/* Sub-Stepper Navigation Bar */}
+                <div className="pb-4 mb-6 border-b border-slate-100">
+                  <div className="flex items-center justify-between mb-2.5">
+                    <div>
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#2a9d8f]">
+                        Stage 4 of 4
                       </span>
+                      <h3 className="text-base font-bold text-slate-900 mt-0.5">
+                        Supplier Verification
+                        <span className="ml-2 text-xs font-normal text-slate-500">
+                          (Step {verifySubStep} of 4)
+                        </span>
+                      </h3>
+                    </div>
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-teal-50 text-teal-700 border border-teal-100">
+                      {Math.round((verifySubStep / 4) * 100)}% Completed
+                    </span>
+                  </div>
+
+                  {/* Modern 4-segment progress track */}
+                  <div className="grid grid-cols-4 gap-2 pt-1">
+                    {[
+                      { step: 1, name: "Identity" },
+                      { step: 2, name: "Operations" },
+                      { step: 3, name: "Compliance" },
+                      { step: 4, name: "Declaration" },
+                    ].map((item) => (
+                      <div key={item.step} className="flex flex-col gap-1.5">
+                        <div
+                          className={`h-1.5 rounded-full transition-all duration-300 ${
+                            item.step < verifySubStep
+                              ? "bg-[#2a9d8f]"
+                              : item.step === verifySubStep
+                              ? "bg-[#2a9d8f]"
+                              : "bg-slate-100"
+                          }`}
+                        />
+                        <span
+                          className={`text-[11px] font-medium transition-colors ${
+                            item.step === verifySubStep
+                              ? "text-[#2a9d8f] font-bold"
+                              : item.step < verifySubStep
+                              ? "text-slate-700 font-semibold"
+                              : "text-slate-400"
+                          }`}
+                        >
+                          {item.name}
+                        </span>
+                      </div>
                     ))}
                   </div>
                 </div>

@@ -2,7 +2,17 @@
 
 import { useEffect, useState, use } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircle2, Loader2, Package, Hash, MapPin, Wrench, HelpCircle, ArrowRight, ChevronRight } from "lucide-react";
+import {
+  CheckCircle,
+  CircleNotch,
+  Package,
+  Hash,
+  MapPin,
+  Wrench,
+  Question,
+  ArrowRight,
+  CaretRight,
+} from "@phosphor-icons/react";
 
 type Extracted = {
   product?: string;
@@ -69,10 +79,10 @@ export default function UnderstandingPage({ params }: { params: Promise<{ id: st
 
   const extractedItems = extracted
     ? [
-        { icon: Package, label: "Product", value: extracted.product },
-        { icon: Hash, label: "Quantity", value: extracted.quantity?.toLocaleString("en-IN") },
-        { icon: MapPin, label: "Use-case", value: extracted.useCase },
-        { icon: Wrench, label: "Environment", value: extracted.environment },
+        { icon: Package, label: "Product", value: extracted.product, bg: "bg-[#0d9488]" },
+        { icon: Hash, label: "Quantity", value: extracted.quantity?.toLocaleString("en-IN"), bg: "bg-[#00a8e8]" },
+        { icon: MapPin, label: "Use-case", value: extracted.useCase, bg: "bg-[#7209b7]" },
+        { icon: Wrench, label: "Environment", value: extracted.environment, bg: "bg-[#f4a261]" },
       ].filter((item) => item.value)
     : [];
 
@@ -83,7 +93,7 @@ export default function UnderstandingPage({ params }: { params: Promise<{ id: st
         <div className="mb-8">
           <div className="flex items-center gap-2 text-sm text-slate-500 mb-3">
             <span className="text-navy-600 font-medium">Analysis</span>
-            <ChevronRight className="w-4 h-4" />
+            <CaretRight className="w-3.5 h-3.5 text-slate-400" weight="bold" />
             <span>Understanding requirement</span>
           </div>
           <h1 className="text-2xl font-bold text-navy-800 mb-1">Understanding your requirement</h1>
@@ -105,13 +115,13 @@ export default function UnderstandingPage({ params }: { params: Promise<{ id: st
                     isPending ? "opacity-30" : "opacity-100"
                   }`}
                 >
-                  <div className="w-6 h-6 flex-shrink-0">
+                  <div className="w-6 h-6 flex-shrink-0 flex items-center justify-center">
                     {isDone ? (
-                      <CheckCircle2 className="w-6 h-6 text-verified-text animate-fade-in" />
+                      <CheckCircle className="w-6 h-6 text-[#2a9d8f] animate-fade-in" weight="fill" />
                     ) : isActive ? (
-                      <Loader2 className="w-6 h-6 text-accent-500 animate-spin" />
+                      <CircleNotch className="w-5 h-5 text-purple-600 animate-spin" />
                     ) : (
-                      <div className="w-6 h-6 rounded-full border-2 border-slate-200" />
+                      <div className="w-5 h-5 rounded-full border-2 border-slate-200" />
                     )}
                   </div>
                   <span
@@ -119,7 +129,7 @@ export default function UnderstandingPage({ params }: { params: Promise<{ id: st
                       isDone
                         ? "text-slate-700"
                         : isActive
-                        ? "text-navy-800"
+                        ? "text-navy-800 font-semibold"
                         : "text-slate-400"
                     }`}
                   >
@@ -141,8 +151,8 @@ export default function UnderstandingPage({ params }: { params: Promise<{ id: st
                   key={item.label}
                   className={`flex items-start gap-3 animate-slide-in-right delay-${(i + 1) * 100}`}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-accent-50 border border-accent-100 flex items-center justify-center flex-shrink-0">
-                    <item.icon className="w-4 h-4 text-accent-600" />
+                  <div className={`w-8 h-8 rounded-full ${item.bg} flex items-center justify-center shrink-0 shadow-xs`}>
+                    <item.icon className="w-4 h-4 text-white" weight="fill" />
                   </div>
                   <div>
                     <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{item.label}</p>
@@ -167,13 +177,13 @@ export default function UnderstandingPage({ params }: { params: Promise<{ id: st
 
         {/* Clarifying question */}
         {showQuestion && extracted?.clarifyingQuestion && !clarifyingAnswer && (
-          <div className="card border-2 border-accent-200 p-6 mb-6 animate-slide-up">
+          <div className="card border-2 border-purple-200 p-6 mb-6 animate-slide-up">
             <div className="flex items-start gap-3 mb-4">
-              <div className="w-8 h-8 rounded-full bg-accent-100 flex items-center justify-center flex-shrink-0">
-                <HelpCircle className="w-5 h-5 text-accent-600" />
+              <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0 text-purple-700">
+                <Question className="w-5 h-5" weight="bold" />
               </div>
               <div>
-                <p className="text-xs font-semibold text-accent-600 uppercase tracking-wider mb-1">One quick question</p>
+                <p className="text-xs font-semibold text-purple-700 uppercase tracking-wider mb-1">One quick question</p>
                 <p className="text-navy-800 font-medium text-sm">{extracted.clarifyingQuestion.question}</p>
               </div>
             </div>
@@ -182,7 +192,7 @@ export default function UnderstandingPage({ params }: { params: Promise<{ id: st
                 <button
                   key={i}
                   onClick={() => setClarifyingAnswer(option)}
-                  className="text-left px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-700 hover:border-accent-400 hover:bg-accent-50 hover:text-accent-700 transition-all font-medium"
+                  className="text-left px-4 py-2.5 rounded-lg border border-slate-200 text-sm text-slate-700 hover:border-purple-400 hover:bg-purple-50/60 hover:text-purple-800 transition-all font-medium"
                 >
                   {option}
                 </button>
@@ -209,13 +219,13 @@ export default function UnderstandingPage({ params }: { params: Promise<{ id: st
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <CircleNotch className="w-4 h-4 animate-spin" />
                   Loading results…
                 </>
               ) : (
                 <>
                   Generate Procurement Analysis
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4" weight="bold" />
                 </>
               )}
             </button>

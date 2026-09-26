@@ -3,9 +3,16 @@
 import { useEffect, useState, use, useRef } from "react";
 import Link from "next/link";
 import {
-  Send, Paperclip, MessageCircle, ChevronRight, Loader2,
-  FileText, Receipt, X, Check
-} from "lucide-react";
+  PaperPlaneTilt,
+  Paperclip,
+  ChatCenteredText,
+  CaretRight,
+  CircleNotch,
+  FileText,
+  Receipt,
+  X,
+  Check,
+} from "@phosphor-icons/react";
 import { useRole } from "@/components/layout/RoleContext";
 import type { Supplier } from "@/lib/standards/data/suppliers";
 
@@ -125,7 +132,7 @@ export default function ConversationPage({ params }: { params: Promise<{ id: str
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-accent-500" />
+        <CircleNotch className="w-8 h-8 animate-spin text-purple-600" />
       </div>
     );
   }
@@ -137,13 +144,13 @@ export default function ConversationPage({ params }: { params: Promise<{ id: str
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center gap-2 text-sm text-slate-500 mb-2">
             <Link href="/history" className="hover:text-navy-800">History</Link>
-            <ChevronRight className="w-4 h-4" />
+            <CaretRight className="w-3.5 h-3.5 text-slate-400" weight="bold" />
             <span>Conversation</span>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-navy-800 flex items-center justify-center">
-                <MessageCircle className="w-5 h-5 text-white" />
+                <ChatCenteredText className="w-5 h-5 text-white" weight="duotone" />
               </div>
               <div>
                 <h1 className="font-bold text-navy-800">{supplier?.name || "Supplier"}</h1>
@@ -152,7 +159,7 @@ export default function ConversationPage({ params }: { params: Promise<{ id: str
             </div>
             {isOfficer && !quote && (
               <button onClick={() => setShowQuoteForm(true)} className="btn btn-outline btn-sm">
-                <Receipt className="w-4 h-4" />
+                <Receipt className="w-4 h-4 text-purple-600" weight="duotone" />
                 Request Quote
               </button>
             )}
@@ -164,9 +171,9 @@ export default function ConversationPage({ params }: { params: Promise<{ id: str
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6">
           {/* Quote card */}
           {quote && (
-            <div className="card p-5 mb-6 border-2 border-accent-200 bg-accent-50 animate-fade-in">
+            <div className="card p-5 mb-6 border-2 border-purple-200 bg-purple-50/50 animate-fade-in">
               <div className="flex items-center gap-2 mb-3">
-                <Receipt className="w-5 h-5 text-accent-600" />
+                <Receipt className="w-5 h-5 text-purple-700" weight="duotone" />
                 <h3 className="font-semibold text-navy-800">Quotation Received</h3>
                 <span className="badge badge-verified ml-auto">Quote Submitted</span>
               </div>
@@ -190,7 +197,7 @@ export default function ConversationPage({ params }: { params: Promise<{ id: str
                   <button
                     key={i}
                     onClick={() => sendMessage(tmpl)}
-                    className="chip text-xs text-left"
+                    className="chip text-xs text-left hover:border-purple-300 hover:text-purple-700"
                   >
                     {tmpl.length > 60 ? tmpl.slice(0, 60) + "…" : tmpl}
                   </button>
@@ -239,7 +246,7 @@ export default function ConversationPage({ params }: { params: Promise<{ id: str
                 disabled={sending || !text.trim()}
                 className="btn btn-primary p-3"
               >
-                {sending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                {sending ? <CircleNotch className="w-4 h-4 animate-spin" /> : <PaperPlaneTilt className="w-4 h-4" weight="fill" />}
               </button>
             </div>
           )}
@@ -253,7 +260,7 @@ export default function ConversationPage({ params }: { params: Promise<{ id: str
             <div className="flex items-center justify-between mb-5">
               <h2 className="font-bold text-navy-800">Request Quotation</h2>
               <button onClick={() => setShowQuoteForm(false)} className="btn btn-ghost btn-sm p-1">
-                <X className="w-4 h-4" />
+                <X className="w-4 h-4" weight="bold" />
               </button>
             </div>
             <div className="space-y-4">
@@ -308,7 +315,7 @@ export default function ConversationPage({ params }: { params: Promise<{ id: str
             <div className="flex gap-3 mt-5">
               <button onClick={() => setShowQuoteForm(false)} className="btn btn-ghost flex-1">Cancel</button>
               <button onClick={submitQuote} disabled={submittingQuote} className="btn btn-primary flex-1">
-                {submittingQuote ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
+                {submittingQuote ? <CircleNotch className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" weight="bold" />}
                 Submit Quote Request
               </button>
             </div>

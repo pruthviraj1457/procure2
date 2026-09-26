@@ -4,10 +4,17 @@ import { useEffect, useState, use } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
-  Star, StarOff, MessageCircle, CheckCircle2, MapPin,
-  TrendingUp, ShieldCheck, Package, ChevronRight,
-  Loader2, ExternalLink
-} from "lucide-react";
+  BookmarkSimple,
+  ChatCenteredText,
+  CheckCircle,
+  MapPin,
+  Certificate,
+  SealCheck,
+  Package,
+  CaretRight,
+  CircleNotch,
+  ArrowSquareOut,
+} from "@phosphor-icons/react";
 import { useRole } from "@/components/layout/RoleContext";
 import type { Supplier } from "@/lib/standards/data/suppliers";
 
@@ -61,7 +68,7 @@ export default function SupplierProfilePage({ params }: { params: Promise<{ id: 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-accent-500" />
+        <CircleNotch className="w-8 h-8 animate-spin text-purple-600" />
       </div>
     );
   }
@@ -80,7 +87,7 @@ export default function SupplierProfilePage({ params }: { params: Promise<{ id: 
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-slate-500 mb-6">
           <Link href="/favorites" className="hover:text-navy-800 transition-colors">Suppliers</Link>
-          <ChevronRight className="w-4 h-4" />
+          <CaretRight className="w-3.5 h-3.5 text-slate-400" weight="bold" />
           <span>{supplier.name}</span>
         </div>
 
@@ -97,7 +104,7 @@ export default function SupplierProfilePage({ params }: { params: Promise<{ id: 
                   <div className="flex items-center gap-2 mt-1 flex-wrap">
                     <span className="badge badge-muted">{supplier.businessType}</span>
                     <span className="flex items-center gap-1 text-xs text-slate-500">
-                      <MapPin className="w-3.5 h-3.5" /> {supplier.location}
+                      <MapPin className="w-3.5 h-3.5 text-purple-600" weight="duotone" /> {supplier.location}
                     </span>
                   </div>
                 </div>
@@ -116,14 +123,14 @@ export default function SupplierProfilePage({ params }: { params: Promise<{ id: 
             <div className="flex flex-col gap-2 flex-shrink-0">
               <button
                 onClick={toggleFavorite}
-                className={`btn btn-sm ${isFavorite ? "text-amber-500 border-amber-200 bg-amber-50 hover:bg-amber-100" : "btn-ghost"}`}
+                className={`btn btn-sm ${isFavorite ? "text-purple-700 border-purple-200 bg-purple-50 hover:bg-purple-100" : "btn-ghost text-slate-400"}`}
               >
-                {isFavorite ? <Star className="w-4 h-4 fill-current" /> : <StarOff className="w-4 h-4" />}
+                <BookmarkSimple className="w-4 h-4" weight={isFavorite ? "fill" : "duotone"} />
                 {isFavorite ? "Favorited" : "Favorite"}
               </button>
               {isOfficer && (
                 <button onClick={startConversation} disabled={startingConvo} className="btn btn-primary btn-sm">
-                  {startingConvo ? <Loader2 className="w-4 h-4 animate-spin" /> : <MessageCircle className="w-4 h-4" />}
+                  {startingConvo ? <CircleNotch className="w-4 h-4 animate-spin" /> : <ChatCenteredText className="w-4 h-4" weight="bold" />}
                   Start Conversation
                 </button>
               )}
@@ -140,8 +147,8 @@ export default function SupplierProfilePage({ params }: { params: Promise<{ id: 
             <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">About</h2>
             <p className="text-sm text-slate-700 leading-relaxed">{supplier.about}</p>
             {supplier.website && (
-              <Link href={supplier.website} target="_blank" className="source-link mt-2 inline-flex">
-                {supplier.website} <ExternalLink className="w-3.5 h-3.5" />
+              <Link href={supplier.website} target="_blank" className="source-link mt-2 inline-flex items-center gap-1">
+                {supplier.website} <ArrowSquareOut className="w-3.5 h-3.5" weight="bold" />
               </Link>
             )}
           </div>
@@ -149,8 +156,8 @@ export default function SupplierProfilePage({ params }: { params: Promise<{ id: 
 
         {/* Standards Passport */}
         <div className="card p-6 mb-6 animate-slide-up">
-          <div className="section-header">
-            <ShieldCheck className="w-5 h-5 text-navy-600" />
+          <div className="section-header flex items-center gap-2 text-navy-900 font-bold mb-3">
+            <Certificate className="w-5 h-5 text-purple-700" weight="duotone" />
             Standards Passport
           </div>
           <p className="text-xs text-slate-500 mb-4">
@@ -164,7 +171,7 @@ export default function SupplierProfilePage({ params }: { params: Promise<{ id: 
                 <div key={i} className="flex items-center justify-between py-2.5 px-4 bg-slate-50 rounded-lg border border-slate-100">
                   <div className="flex items-center gap-3">
                     {sp.certified ? (
-                      <CheckCircle2 className="w-5 h-5 text-verified-text" />
+                      <CheckCircle className="w-5 h-5 text-emerald-600" weight="fill" />
                     ) : (
                       <div className="w-5 h-5 rounded-full border-2 border-slate-300" />
                     )}
@@ -174,8 +181,8 @@ export default function SupplierProfilePage({ params }: { params: Promise<{ id: 
                     </span>
                   </div>
                   {sp.documentUrl && (
-                    <Link href={sp.documentUrl} target="_blank" className="source-link text-xs">
-                      View Certificate <ExternalLink className="w-3 h-3" />
+                    <Link href={sp.documentUrl} target="_blank" className="source-link text-xs inline-flex items-center gap-1">
+                      View Certificate <ArrowSquareOut className="w-3 h-3" weight="bold" />
                     </Link>
                   )}
                 </div>
@@ -186,14 +193,14 @@ export default function SupplierProfilePage({ params }: { params: Promise<{ id: 
 
         {/* Certifications */}
         <div className="card p-6 mb-6 animate-slide-up">
-          <div className="section-header">
-            <TrendingUp className="w-5 h-5 text-navy-600" />
+          <div className="section-header flex items-center gap-2 text-navy-900 font-bold mb-3">
+            <SealCheck className="w-5 h-5 text-purple-700" weight="duotone" />
             Certifications &amp; Compliance
           </div>
           <div className="flex flex-wrap gap-2">
             {supplier.certifications.map((cert, i) => (
-              <span key={i} className={cert.verified ? "badge badge-verified px-3 py-1.5" : "badge badge-muted px-3 py-1.5"}>
-                {cert.verified && <CheckCircle2 className="w-3.5 h-3.5" />}
+              <span key={i} className={cert.verified ? "badge badge-verified px-3 py-1.5 flex items-center gap-1" : "badge badge-muted px-3 py-1.5"}>
+                {cert.verified && <SealCheck className="w-3.5 h-3.5 text-emerald-600" weight="fill" />}
                 {cert.name}
               </span>
             ))}
@@ -202,8 +209,8 @@ export default function SupplierProfilePage({ params }: { params: Promise<{ id: 
 
         {/* Product Catalog */}
         <div className="card p-6 mb-6 animate-slide-up">
-          <div className="section-header">
-            <Package className="w-5 h-5 text-navy-600" />
+          <div className="section-header flex items-center gap-2 text-navy-900 font-bold mb-3">
+            <Package className="w-5 h-5 text-purple-700" weight="duotone" />
             Product Catalog
           </div>
           <div className="space-y-2">

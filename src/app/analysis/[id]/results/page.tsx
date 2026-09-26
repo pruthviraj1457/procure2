@@ -4,10 +4,41 @@ import { useEffect, useState, useRef, use } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
-  CheckCircle2, AlertTriangle, Info, ExternalLink, ChevronDown,
-  ChevronUp, Shield, FileText, Download, ArrowRight,
-  Loader2, ChevronRight, AlertCircle, BookOpen, Send, Paperclip, Mic, Edit3, Check, Sparkles, HelpCircle, ListChecks, Layers
-} from "lucide-react";
+  MagnifyingGlass,
+  Bell,
+  CaretRight,
+  CaretDown,
+  CaretUp,
+  Brain,
+  ShieldWarning,
+  ShieldCheck,
+  WarningOctagon,
+  WarningCircle,
+  CircleNotch,
+  ArrowRight,
+  ArrowUpRight,
+  PencilSimpleLine,
+  Check,
+  CheckCircle,
+  Package,
+  Compass,
+  FileText,
+  Certificate,
+  Flask,
+  SealCheck,
+  Question,
+  Hash,
+  Factory,
+  Hammer,
+  GitFork,
+  ClockCounterClockwise,
+  ListChecks,
+  CheckSquareOffset,
+  ChatCenteredText,
+  Paperclip,
+  Microphone,
+  PaperPlaneTilt,
+} from "@phosphor-icons/react";
 import type { Standard } from "@/lib/standards/data/standards";
 import type { AiResearchResult, ResearchStandard } from "@/lib/ai/aiResearchMode";
 
@@ -249,11 +280,13 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
               </svg>
             </button>
             <Link href="/dashboard" className="flex items-center gap-2.5 group">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk4Le55Bl4onG-aJhl36kgDhKn_4-PxMRxtfLPCCr39mrNQSicw2rShwxdGFp5-soBdgViP52Sb6_xswzVzOuZHtleG3l5Cx5_MpzywAQQBUj7xVX60Hlv6Ho-Juym4oKZ3aJY9EeOVkXDTZIdCieoEzH_FNDRElf4CUF8Z6UNObrlnY2joDPkt8DdZKA36rv77v9HRuvvnUrijvsS0X7tR377ARVzkkNwAvdHiBVyxtrOLvVKiDb3KGdtWT7tc8PwrZU"
-                alt="Procure Logo"
-                className="w-8 h-8 object-contain transition-transform group-hover:scale-105"
-              />
+              <div className="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center p-1 border-2 border-purple-600/80 shadow-xs transition-transform group-hover:scale-105 shrink-0">
+                <img
+                  src="/procure-logo.png"
+                  alt="Procure Logo"
+                  className="w-full h-full object-contain rounded-full"
+                />
+              </div>
               <span className="text-xl font-bold tracking-tight text-slate-900 font-display">
                 Procure
               </span>
@@ -263,24 +296,20 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
           <div className="flex-1 max-w-2xl">
             <div className="relative flex items-center">
               <div className="absolute left-3.5 text-slate-400 pointer-events-none">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-                </svg>
+                <MagnifyingGlass weight="duotone" className="w-4 h-4" />
               </div>
               <input
                 id="global-procure-search"
                 type="text"
                 placeholder="Search standards, products, suppliers, certifications..."
-                className="w-full pl-10 pr-20 py-2 text-sm bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 rounded-lg shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all placeholder:text-slate-400 font-normal text-slate-800"
+                className="w-full pl-10 pr-20 py-2 text-sm bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 rounded-lg shadow-inner focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all placeholder:text-slate-400 font-normal text-slate-800"
               />
             </div>
           </div>
 
           <div className="flex items-center gap-4 shrink-0">
-            <button type="button" aria-label="Notifications" className="relative p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8"></path>
-              </svg>
+            <button type="button" aria-label="Notifications" className="relative p-2 text-slate-500 hover:text-purple-700 hover:bg-purple-50 rounded-lg transition-colors cursor-pointer">
+              <Bell weight="duotone" className="w-5 h-5" />
             </button>
             <div className="h-6 w-px bg-slate-200"></div>
             <button type="button" className="flex items-center gap-2.5 p-1.5 pr-2.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer">
@@ -300,10 +329,10 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
       <main className="flex-1 max-w-[1280px] w-full mx-auto px-6 py-8">
         {/* Breadcrumb Navigation */}
         <div className="flex items-center gap-2 text-xs text-slate-500 mb-6 font-mono">
-          <Link href="/dashboard" className="hover:text-slate-900 transition-colors">Dashboard</Link>
-          <ChevronRight className="w-3.5 h-3.5" />
+          <Link href="/dashboard" className="hover:text-purple-700 transition-colors">Dashboard</Link>
+          <CaretRight weight="bold" className="w-3.5 h-3.5" />
           <span className="text-slate-900 font-semibold">AI Procurement Analysis</span>
-          <ChevronRight className="w-3.5 h-3.5" />
+          <CaretRight weight="bold" className="w-3.5 h-3.5" />
           <span className="text-slate-400">#PROC-{id.slice(-6).toUpperCase()}</span>
         </div>
 
@@ -314,8 +343,8 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
               <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-950 font-display">
                 AI Procurement Analysis
               </h1>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-300">
-                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-300/80">
+                <Brain weight="duotone" className="w-3.5 h-3.5 text-amber-700" />
                 AI Research Mode Active
               </span>
             </div>
@@ -328,17 +357,17 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
             <button
               type="button"
               onClick={() => router.push(`/analysis/${id}/suppliers`)}
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-900 hover:bg-[#0f62fe] text-white text-xs font-semibold rounded-lg transition-colors shadow-xs cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-900 hover:bg-[#6d28d9] text-white text-xs font-semibold rounded-lg transition-colors shadow-xs cursor-pointer"
             >
               <span>Find Verified Suppliers</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight weight="bold" className="w-4 h-4" />
             </button>
           </div>
         </div>
 
         {/* Professional Regulatory Compliance Notice Box */}
         <div className="mb-8 p-4 rounded-xl bg-slate-900 text-slate-200 border border-slate-700 shadow-sm flex items-start gap-3 text-xs leading-relaxed font-sans">
-          <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+          <ShieldWarning weight="duotone" className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
           <div className="flex-1">
             <span className="font-semibold text-white">Compliance &amp; Verification Disclaimer: </span>
             <span>
@@ -350,7 +379,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
         {/* Error State Banner */}
         {errorMessage && (
           <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3 text-sm text-red-800">
-            <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+            <WarningOctagon weight="fill" className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="font-semibold">{errorMessage}</p>
             </div>
@@ -363,7 +392,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
         {/* Loading Overlay */}
         {loading ? (
           <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center shadow-xs">
-            <Loader2 className="w-8 h-8 animate-spin text-[#0f62fe] mx-auto mb-3" />
+            <CircleNotch weight="bold" className="w-8 h-8 animate-spin text-[#6d28d9] mx-auto mb-3" />
             <h3 className="text-base font-bold text-slate-900">Procure AI is analyzing your requirement…</h3>
             <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
               Running Gemini AI Research Mode &amp; querying BIS standards knowledge layers.
@@ -384,9 +413,9 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                   <button
                     type="button"
                     onClick={() => setIsEditingReq(true)}
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-800 cursor-pointer"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-purple-700 hover:text-purple-900 cursor-pointer"
                   >
-                    <Edit3 className="w-3.5 h-3.5" />
+                    <PencilSimpleLine weight="duotone" className="w-3.5 h-3.5" />
                     <span>Review / Edit Requirement</span>
                   </button>
                 ) : (
@@ -402,9 +431,9 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                       type="button"
                       onClick={handleSaveEditedRequirement}
                       disabled={isUpdatingReq}
-                      className="inline-flex items-center gap-1 px-3 py-1 bg-slate-900 hover:bg-[#0f62fe] text-white text-xs font-semibold rounded cursor-pointer"
+                      className="inline-flex items-center gap-1 px-3 py-1 bg-slate-900 hover:bg-[#6d28d9] text-white text-xs font-semibold rounded cursor-pointer"
                     >
-                      {isUpdatingReq ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3.5 h-3.5" />}
+                      {isUpdatingReq ? <CircleNotch weight="bold" className="w-3 h-3 animate-spin" /> : <Check weight="bold" className="w-3.5 h-3.5" />}
                       <span>Save &amp; Re-Analyze</span>
                     </button>
                   </div>
@@ -421,7 +450,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                     value={editedReqInput}
                     onChange={(e) => setEditedReqInput(e.target.value)}
                     rows={3}
-                    className="w-full p-3.5 text-sm bg-white border border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl outline-none font-sans text-slate-800"
+                    className="w-full p-3.5 text-sm bg-white border border-purple-400 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none font-sans text-slate-800"
                   />
                 </div>
               )}
@@ -433,16 +462,18 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                 </span>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
                   {[
-                    { label: "Product Identification", done: true },
-                    { label: "Intended Use Analysis", done: true },
-                    { label: "Technical Requirements", done: true },
-                    { label: "Standards Research", done: true },
-                    { label: "Testing Protocols", done: true },
-                    { label: "Certification & QCO", done: true },
+                    { label: "Product Identification", icon: <Package weight="fill" className="w-3.5 h-3.5 text-white" />, bg: "bg-[#0d9488]" },
+                    { label: "Intended Use Analysis", icon: <Compass weight="fill" className="w-3.5 h-3.5 text-white" />, bg: "bg-[#00a8e8]" },
+                    { label: "Technical Requirements", icon: <FileText weight="fill" className="w-3.5 h-3.5 text-white" />, bg: "bg-[#6366f1]" },
+                    { label: "Standards Research", icon: <Certificate weight="fill" className="w-3.5 h-3.5 text-white" />, bg: "bg-[#7209b7]" },
+                    { label: "Testing Protocols", icon: <Flask weight="fill" className="w-3.5 h-3.5 text-white" />, bg: "bg-[#f4a261]" },
+                    { label: "Certification & QCO", icon: <SealCheck weight="fill" className="w-3.5 h-3.5 text-white" />, bg: "bg-[#2a9d8f]" },
                   ].map((step, idx) => (
-                    <div key={idx} className="flex items-center gap-2 p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-100">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span className="text-xs font-semibold text-emerald-950 leading-tight">{step.label}</span>
+                    <div key={idx} className="flex items-center gap-2 p-2.5 rounded-lg bg-white border border-slate-200 shadow-2xs">
+                      <span className={`w-7 h-7 rounded-full ${step.bg} flex items-center justify-center shrink-0 shadow-xs`}>
+                        {step.icon}
+                      </span>
+                      <span className="text-xs font-semibold text-slate-800 leading-tight">{step.label}</span>
                     </div>
                   ))}
                 </div>
@@ -453,7 +484,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
             {clarificationsNeeded.length > 0 && (
               <section className="bg-amber-50/80 border-2 border-amber-300 rounded-2xl p-6 shadow-xs">
                 <div className="flex items-start gap-3">
-                  <HelpCircle className="w-6 h-6 text-amber-600 shrink-0 mt-0.5" />
+                  <Question weight="duotone" className="w-6 h-6 text-amber-600 shrink-0 mt-0.5" />
                   <div className="flex-1">
                     <h3 className="text-base font-bold text-amber-950 font-display">Requirement Clarification Needed</h3>
                     <p className="text-xs text-amber-900 mt-1 leading-relaxed">
@@ -477,7 +508,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
             {/* ── SECTION 2: Item 1 & 2: Product Identified & Requirement Understanding ── */}
             <section className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
               <div className="flex items-center gap-2.5 mb-5 pb-3 border-b border-slate-100">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center font-bold text-xs">
+                <div className="w-8 h-8 rounded-lg bg-purple-50 text-purple-700 border border-purple-100 flex items-center justify-center font-bold text-xs font-mono">
                   01
                 </div>
                 <div>
@@ -492,7 +523,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                   <span className="text-sm font-bold text-slate-900 block">
                     {aiResearch?.product || extracted.product || "General Procurement Item"}
                   </span>
-                  <span className="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200 font-mono">
+                  <span className="inline-block mt-2 px-2 py-0.5 rounded text-[10px] font-semibold bg-purple-50 text-purple-700 border border-purple-200 font-mono">
                     {aiResearch?.category || extracted.category || "General Goods"}
                   </span>
                 </div>
@@ -523,7 +554,9 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
               {/* Item 5: Technical Requirements Table */}
               <div className="space-y-3">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 font-mono flex items-center gap-1.5">
-                  <FileText className="w-4 h-4 text-blue-600" />
+                  <span className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center">
+                    <FileText weight="fill" className="w-3.5 h-3.5 text-white" />
+                  </span>
                   Technical &amp; Functional Requirements
                 </h3>
 
@@ -562,11 +595,12 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
             <section className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
               <div className="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 flex items-center justify-center font-bold text-xs">
+                  <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 flex items-center justify-center font-bold text-xs font-mono">
                     02
                   </div>
                   <div>
                     <h2 className="text-base font-bold text-slate-900 font-display flex items-center gap-2">
+                      <Certificate weight="duotone" className="w-4 h-4 text-purple-700" />
                       <span>Applicable Indian Standards (IS)</span>
                       <span className="text-xs font-mono font-semibold px-2 py-0.5 bg-amber-50 text-amber-900 rounded border border-amber-300">
                         {researchStandards.length > 0 ? researchStandards.length : standards.length} Identified
@@ -592,7 +626,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                 </div>
               ) : (
                 <div className="p-8 text-center bg-slate-50 border border-slate-200 rounded-xl">
-                  <AlertCircle className="w-8 h-8 text-slate-400 mx-auto mb-2" />
+                  <WarningCircle weight="duotone" className="w-8 h-8 text-slate-400 mx-auto mb-2" />
                   <h3 className="text-sm font-bold text-slate-800">No verified standard found in static catalog</h3>
                   <p className="text-xs text-slate-500 mt-1 max-w-md mx-auto">
                     Not verified / requires official BIS verification. Please search directly on the official BIS portal.
@@ -604,7 +638,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
             {/* ── SECTION 4: Item 6, 7, 8, 9: Testing, Material & Safety Requirements ── */}
             <section className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
               <div className="flex items-center gap-2.5 mb-5 pb-3 border-b border-slate-100">
-                <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center font-bold text-xs">
+                <div className="w-8 h-8 rounded-lg bg-purple-50 text-purple-700 border border-purple-100 flex items-center justify-center font-bold text-xs font-mono">
                   03
                 </div>
                 <div>
@@ -616,7 +650,9 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
               {/* Item 6: Testing Requirements */}
               <div className="mb-6">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 font-mono mb-3 flex items-center gap-1.5">
-                  <Layers className="w-4 h-4 text-indigo-600" />
+                  <span className="w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center">
+                    <Flask weight="fill" className="w-3.5 h-3.5 text-white" />
+                  </span>
                   Item 6: Laboratory &amp; Field Testing Requirements
                 </h3>
 
@@ -652,14 +688,17 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
 
               {/* Item 7: Material / Construction Requirements */}
               <div className="mb-6">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 font-mono mb-3">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 font-mono mb-3 flex items-center gap-1.5">
+                  <span className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center">
+                    <Hammer weight="fill" className="w-3.5 h-3.5 text-white" />
+                  </span>
                   Item 7: Material &amp; Construction Specifications
                 </h3>
                 {displayMaterialReqs.length > 0 ? (
                   <div className="space-y-2">
                     {displayMaterialReqs.map((mat, idx) => (
                       <div key={idx} className="p-3 rounded-lg bg-slate-50 border border-slate-200/80 text-xs text-slate-800 flex items-start gap-2">
-                        <span className="text-blue-600 font-bold">•</span>
+                        <span className="text-purple-700 font-bold">•</span>
                         <span>{mat}</span>
                       </div>
                     ))}
@@ -675,7 +714,9 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 font-mono mb-3 flex items-center gap-1.5">
-                    <Shield className="w-4 h-4 text-emerald-600" />
+                    <span className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center">
+                      <ShieldCheck weight="fill" className="w-3.5 h-3.5 text-white" />
+                    </span>
                     Item 8: Safety Requirements
                   </h3>
                   <div className="space-y-2">
@@ -695,10 +736,13 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                 </div>
 
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 font-mono mb-3">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 font-mono mb-3 flex items-center gap-1.5">
+                    <span className="w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center">
+                      <SealCheck weight="fill" className="w-3.5 h-3.5 text-white" />
+                    </span>
                     Item 9: Certification &amp; Conformity Information
                   </h3>
-                  <div className="p-3.5 rounded-lg bg-blue-50/60 border border-blue-200 text-xs text-slate-800 leading-relaxed font-sans">
+                  <div className="p-3.5 rounded-lg bg-purple-50/60 border border-purple-200 text-xs text-slate-800 leading-relaxed font-sans">
                     {primaryResearchStandard?.certificationInformation || "Mandatory ISI Mark certification scheme. Verify QCO notification on official BIS portal."}
                   </div>
                 </div>
@@ -708,7 +752,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
             {/* ── SECTION 5: Item 10 & 11: Related Standards & Revision Info ── */}
             <section className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
               <div className="flex items-center gap-2.5 mb-5 pb-3 border-b border-slate-100">
-                <div className="w-8 h-8 rounded-lg bg-purple-50 text-purple-700 border border-purple-100 flex items-center justify-center font-bold text-xs">
+                <div className="w-8 h-8 rounded-lg bg-purple-50 text-purple-700 border border-purple-100 flex items-center justify-center font-bold text-xs font-mono">
                   04
                 </div>
                 <div>
@@ -719,7 +763,10 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 font-mono mb-3">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 font-mono mb-3 flex items-center gap-1.5">
+                    <span className="w-6 h-6 rounded-full bg-teal-500 flex items-center justify-center">
+                      <GitFork weight="fill" className="w-3.5 h-3.5 text-white" />
+                    </span>
                     Item 10: Related &amp; Sampling Standards
                   </h3>
                   {displayRelatedStandards.length > 0 ? (
@@ -738,7 +785,10 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                 </div>
 
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 font-mono mb-3">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 font-mono mb-3 flex items-center gap-1.5">
+                    <span className="w-6 h-6 rounded-full bg-slate-600 flex items-center justify-center">
+                      <ClockCounterClockwise weight="fill" className="w-3.5 h-3.5 text-white" />
+                    </span>
                     Item 11: Revision &amp; Amendment Information
                   </h3>
                   <div className="p-3.5 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-800 leading-relaxed font-sans">
@@ -751,12 +801,14 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
             {/* ── SECTION 6: Item 12: Procurement Specification Checklist ── */}
             <section className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
               <div className="flex items-center gap-2.5 mb-5 pb-3 border-b border-slate-100">
-                <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-100 flex items-center justify-center font-bold text-xs">
+                <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-100 flex items-center justify-center font-bold text-xs font-mono">
                   05
                 </div>
                 <div>
                   <h2 className="text-base font-bold text-slate-900 font-display flex items-center gap-2">
-                    <ListChecks className="w-5 h-5 text-emerald-600" />
+                    <span className="w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center">
+                      <ListChecks weight="fill" className="w-4 h-4 text-white" />
+                    </span>
                     <span>Item 12: Procurement Specification Checklist</span>
                   </h2>
                   <p className="text-xs text-slate-500">Tender verification checklist for government procurement officers</p>
@@ -768,9 +820,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                   {displayChecklist.map((item, idx) => (
                     <div key={idx} className="flex items-start justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 text-xs gap-3">
                       <div className="flex items-start gap-2.5">
-                        <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-[10px] shrink-0 mt-0.5">
-                          ✓
-                        </span>
+                        <CheckCircle weight="fill" className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                         <span className="font-medium text-slate-900">{item.item}</span>
                       </div>
                       <div className="flex items-center gap-2 shrink-0 font-mono text-[11px]">
@@ -793,7 +843,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
             <section className="bg-slate-900 text-white rounded-2xl p-6 shadow-sm">
               <div className="flex items-center justify-between pb-4 border-b border-slate-800">
                 <div className="flex items-center gap-2.5">
-                  <BookOpen className="w-5 h-5 text-amber-400" />
+                  <CheckSquareOffset weight="duotone" className="w-5 h-5 text-amber-400" />
                   <div>
                     <h3 className="text-sm font-bold text-white font-display">Item 13 &amp; 14: Evidence, Source &amp; Verification Status</h3>
                     <p className="text-xs text-slate-400">Knowledge source telemetry &amp; verification status indicator</p>
@@ -812,7 +862,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                 <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
                   <span className="text-slate-400 uppercase tracking-wider font-mono text-[10px] block mb-1">Status</span>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-400/20 text-amber-300 font-bold font-mono text-xs mb-2 border border-amber-400/30">
-                    <AlertTriangle className="w-3.5 h-3.5" />
+                    <WarningCircle weight="fill" className="w-3.5 h-3.5 text-amber-300" />
                     AI identified — BIS verification required
                   </div>
                   <p className="text-slate-300 leading-relaxed">
@@ -825,7 +875,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                   <ul className="space-y-1.5 text-slate-300 font-mono">
                     {(primaryResearchStandard?.evidence || ["AI Research Knowledge Base", "Official BIS Portal Lookup Required"]).map((ev, i) => (
                       <li key={i} className="flex items-center gap-2">
-                        <span className="text-amber-400">›</span>
+                        <Check weight="bold" className="w-3.5 h-3.5 text-amber-400" />
                         <span>{ev}</span>
                       </li>
                     ))}
@@ -837,7 +887,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                     className="inline-flex items-center gap-1 mt-3 font-semibold text-amber-400 hover:underline font-mono"
                   >
                     <span>Visit Official BIS Services Portal</span>
-                    <ExternalLink className="w-3 h-3" />
+                    <ArrowUpRight weight="bold" className="w-3.5 h-3.5" />
                   </a>
                 </div>
               </div>
@@ -847,7 +897,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
             <section className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
               <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-purple-50 text-purple-700 border border-purple-100 flex items-center justify-center font-bold text-xs">
+                  <div className="w-8 h-8 rounded-lg bg-purple-50 text-purple-700 border border-purple-100 flex items-center justify-center font-bold text-xs font-mono">
                     06
                   </div>
                   <div>
@@ -875,7 +925,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                         className={`max-w-xl p-3.5 rounded-2xl text-xs leading-relaxed ${
                           msg.role === "user"
                             ? "bg-slate-900 text-white rounded-br-none"
-                            : "bg-blue-50 text-slate-900 border border-blue-100 rounded-bl-none font-medium"
+                            : "bg-purple-50 text-slate-900 border border-purple-100 rounded-bl-none font-medium"
                         }`}
                       >
                         <span className="font-semibold block text-[10px] opacity-70 mb-1 font-mono uppercase">
@@ -888,7 +938,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                 )}
                 {isSendingMsg && (
                   <div className="flex items-center gap-2 text-xs text-slate-400 p-2">
-                    <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-600" />
+                    <CircleNotch weight="bold" className="w-3.5 h-3.5 animate-spin text-purple-600" />
                     <span>Procure AI is processing your input…</span>
                   </div>
                 )}
@@ -903,29 +953,29 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
                     placeholder="Ask Procure, clarify a requirement, or add more information..."
-                    className="w-full pl-4 pr-24 py-3 text-xs bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all placeholder:text-slate-400 font-sans text-slate-800 shadow-inner"
+                    className="w-full pl-4 pr-24 py-3 text-xs bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all placeholder:text-slate-400 font-sans text-slate-800 shadow-inner"
                   />
                   <div className="absolute right-2 flex items-center gap-1">
                     <button
                       type="button"
                       title="Attach file or spec sheet"
-                      className="p-1.5 text-slate-400 hover:text-slate-700 rounded transition-colors cursor-pointer"
+                      className="p-1.5 text-slate-400 hover:text-purple-700 rounded transition-colors cursor-pointer"
                     >
-                      <Paperclip className="w-4 h-4" />
+                      <Paperclip weight="duotone" className="w-4 h-4" />
                     </button>
                     <button
                       type="button"
                       title="Voice input"
-                      className="p-1.5 text-slate-400 hover:text-slate-700 rounded transition-colors cursor-pointer"
+                      className="p-1.5 text-slate-400 hover:text-purple-700 rounded transition-colors cursor-pointer"
                     >
-                      <Mic className="w-4 h-4" />
+                      <Microphone weight="duotone" className="w-4 h-4" />
                     </button>
                     <button
                       type="submit"
                       disabled={isSendingMsg || !chatInput.trim()}
-                      className="p-2 bg-slate-900 hover:bg-[#0f62fe] text-white rounded-lg transition-colors disabled:opacity-40 cursor-pointer shadow-xs"
+                      className="p-2 bg-slate-900 hover:bg-[#6d28d9] text-white rounded-lg transition-colors disabled:opacity-40 cursor-pointer shadow-xs"
                     >
-                      <Send className="w-3.5 h-3.5" />
+                      <PaperPlaneTilt weight="duotone" className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
@@ -939,7 +989,7 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
       <footer className="border-t border-slate-200 bg-white py-6 mt-12 text-xs text-slate-500">
         <div className="max-w-[1440px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-slate-800">Procure AI Platform</span>
+            <span className="font-semibold text-slate-800 font-display">Procure AI Platform</span>
             <span>•</span>
             <span>AI Research Mode &amp; BIS Standards Intelligence</span>
           </div>
@@ -974,11 +1024,12 @@ function AiResearchStandardCard({
               {standard.standardNumber}
             </span>
             <span className="px-2.5 py-0.5 rounded text-[11px] font-bold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1">
-              <AlertTriangle className="w-3 h-3 text-amber-700" />
+              <WarningCircle weight="fill" className="w-3.5 h-3.5 text-amber-700" />
               AI identified — BIS verification required
             </span>
             {rank === 1 && (
-              <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-blue-50 text-blue-800 border border-blue-200">
+              <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-purple-50 text-purple-800 border border-purple-200 flex items-center gap-1">
+                <SealCheck weight="duotone" className="w-3.5 h-3.5 text-purple-700" />
                 Primary Standard
               </span>
             )}
@@ -999,7 +1050,7 @@ function AiResearchStandardCard({
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-300 text-slate-800 text-xs font-semibold rounded-lg transition-colors cursor-pointer"
           >
             <span>Verify on BIS Portal</span>
-            <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
+            <ArrowUpRight weight="bold" className="w-3.5 h-3.5 text-slate-500" />
           </a>
         </div>
       </div>
@@ -1015,9 +1066,9 @@ function AiResearchStandardCard({
       <button
         type="button"
         onClick={() => setExpanded(!expanded)}
-        className="mt-3 text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1 transition-colors cursor-pointer"
+        className="mt-3 text-xs font-semibold text-purple-700 hover:text-purple-900 flex items-center gap-1 transition-colors cursor-pointer"
       >
-        {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+        {expanded ? <CaretUp weight="bold" className="w-3.5 h-3.5" /> : <CaretDown weight="bold" className="w-3.5 h-3.5" />}
         <span>{expanded ? "Hide technical details & evidence" : "Show technical details, related standards & evidence"}</span>
       </button>
 
@@ -1062,7 +1113,7 @@ function VerifiedStandardCard({
   const score = standard.finalScore || standard.relevanceScore;
 
   return (
-    <div className={`p-5 rounded-xl border transition-all bg-white ${rank === 1 ? "border-blue-400 shadow-xs ring-1 ring-blue-100" : "border-slate-200 hover:border-slate-300"}`}>
+    <div className={`p-5 rounded-xl border transition-all bg-white ${rank === 1 ? "border-purple-400 shadow-xs ring-1 ring-purple-100" : "border-slate-200 hover:border-slate-300"}`}>
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2 flex-wrap font-mono">
@@ -1070,7 +1121,7 @@ function VerifiedStandardCard({
               {standard.number}:{standard.year}
             </span>
             <span className="px-2.5 py-0.5 rounded text-[11px] font-semibold bg-amber-50 text-amber-900 border border-amber-300 flex items-center gap-1">
-              <AlertTriangle className="w-3 h-3 text-amber-700" />
+              <WarningCircle weight="fill" className="w-3.5 h-3.5 text-amber-700" />
               {standard.verificationStatus || "Prototype knowledge record — BIS verification required"}
             </span>
           </div>
@@ -1078,7 +1129,7 @@ function VerifiedStandardCard({
           <h3 className="text-base font-bold text-slate-900 mb-1 font-display">{standard.title}</h3>
           <p className="text-xs text-slate-500 mb-3">{standard.revision}</p>
 
-          <p className="text-xs text-slate-700 italic border-l-2 border-blue-500 pl-3 py-0.5 leading-relaxed bg-slate-50 rounded-r-md">
+          <p className="text-xs text-slate-700 italic border-l-2 border-purple-500 pl-3 py-0.5 leading-relaxed bg-purple-50/50 rounded-r-md">
             "{standard.whyApplicable}"
           </p>
         </div>
@@ -1091,7 +1142,7 @@ function VerifiedStandardCard({
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-300 text-slate-800 text-xs font-semibold rounded-lg transition-colors font-mono cursor-pointer"
           >
             <span>Official BIS Source</span>
-            <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
+            <ArrowUpRight weight="bold" className="w-3.5 h-3.5 text-slate-500" />
           </a>
         </div>
       </div>
